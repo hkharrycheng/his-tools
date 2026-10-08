@@ -1,0 +1,21 @@
+{
+  "updated_at": "2026-10-08 19:05:41",
+  "tools": [
+    {
+      "name": "巴士到站時間",
+      "description": "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
+      "icon": "🚌",
+      "url": "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
+      "github": "https://github.com/hkharrycheng/bus-eta-sync",
+      "status": "已上線"
+    },
+    {
+      "name": "外幣夾錢",
+      "description": "實時外幣兌換率查詢 + 夾錢計算",
+      "icon": "💱",
+      "url": "https://hkharrycheng.github.io/currency-exchange/",
+      "github": "https://github.com/hkharrycheng/currency-exchange",
+      "status": "已上線"
+    }
+  ]
+}
