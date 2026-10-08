@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>HIS Tools</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Microsoft YaHei', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== Merged Header (Title + Date + Weather) ===== */
+  .header {
+    background: linear-gradient(135deg, #1f6feb 0%, #388bfd 50%, #58a6ff 100%);
+    padding: 16px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+  }
+  .header-icon {
+    font-size: 28px;
+  }
+  .header-title {
+    display: flex;
+    flex-direction: column;
+  }
+  .header-title h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  .header-title p {
+    font-size: 10px;
+    opacity: 0.85;
+    font-weight: 300;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+  }
+  .header-date {
+    text-align: right;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .header-date:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  .header-date .date-main {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .header-date .date-sub {
+    font-size: 10px;
+    opacity: 0.85;
+  }
+  .header-weather {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .header-weather:hover {
+    background: rgba(255,255,255,0.25);
+  }
+  .weather-icon {
+    font-size: 20px;
+  }
+  .weather-temp {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .weather-loading {
+    font-size: 10px;
+    opacity: 0.8;
+  }
+
+  /* ===== Main Content ===== */
+  .container {
+    padding: 18px 16px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ===== Search Bar ===== */
+  .search-container {
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .search-input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    color: #e6edf3;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus {
+    border-color: #388bfd;
+  }
+  .search-input::placeholder {
+    color: #484f58;
+  }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0.6;
+  }
+  .search-clear {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #8b949e;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+    padding: 4px;
+  }
+  .search-clear.visible {
+    display: block;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8b949e;
+    margin-bottom: 12px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: #388bfd;
+    border-radius: 2px;
+  }
+  .section-title .count {
+    font-size: 12px;
+    color: #484f58;
+    font-weight: 400;
+  }
+
+  /* ===== Tool Cards ===== */
+  .tool-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tool-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .tool-card:active {
+    transform: scale(0.98);
+    background: #1c2128;
+  }
+  .tool-card::after {
+    content: '›';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #484f58;
+    font-weight: 300;
+  }
+  .tool-card.hidden {
+    display: none;
+  }
+
+  .tool-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: white;
+  }
+  .tool-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .tool-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .tool-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: #e6edf3;
+  }
+  .tool-desc {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.4;
+  }
+  .tool-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: #1f6feb;
+    color: white;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  /* ===== Coming Soon Cards ===== */
+  .tool-card.coming-soon {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .tool-card.coming-soon:active {
+    transform: none;
+  }
+  .tool-icon.placeholder {
+    background: #21262d;
+    border: 2px dashed #30363d;
+    font-size: 20px;
+  }
+  .coming-soon-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: #30363d;
+    color: #8b949e;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  /* ===== No Results ===== */
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #484f58;
+    display: none;
+  }
+  .no-results.visible {
+    display: block;
+  }
+  .no-results .icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .no-results p {
+    font-size: 14px;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #484f58;
+    font-size: 11px;
+    border-top: 1px solid #21262d;
+    margin-top: 16px;
+  }
+  .footer p { margin-bottom: 3px; }
+
+  /* ===== Safe Area ===== */
+  @supports (padding: max(0px)) {
+    .header { padding-top: max(16px, env(safe-area-inset-top)); }
+    .container { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
+  }
+
+  /* ===== Desktop ===== */
+  @media (min-width: 768px) {
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .header { padding: 20px 24px; }
+    .header-title h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Merged Header ===== -->
+<div class="header">
+  <div class="header-left">
+    <span class="header-icon">🛠️</span>
+    <div class="header-title">
+      <h1>HIS Tools</h1>
+      <p>Harry's Intelligent Services</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="header-date" href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank">
+      <div class="date-main" id="dateMain">載入中...</div>
+      <div class="date-sub" id="dateSub"></div>
+    </a>
+    <a class="header-weather" id="weatherBox" href="https://www.hko.gov.hk/" target="_blank">
+      <span class="weather-loading">載入中</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+  
+  <!-- Search Bar -->
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="搜尋工具..." autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+  </div>
+
+  <div class="section-title">
+    實用工具
+    <span class="count" id="toolCount">(1)</span>
+  </div>
+  
+  <div class="tool-grid" id="toolGrid">
+    
+    <!-- Tool 1: 巴士到站查詢 -->
+    <div class="tool-card" data-name="巴士到站查詢" data-desc="九巴城巴新巴小巴實時到站時間常用路線" onclick="window.open('https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html', '_blank')">
+      <div class="tool-icon">
+        <img src="citybus-logo.png" alt="城巴 Logo">
+      </div>
+      <div class="tool-info">
+        <div class="tool-name">巴士到站查詢</div>
+        <div class="tool-desc">九巴、城巴/新巴、小巴實時到站時間，常用路線一覽</div>
+        <span class="tool-badge">已上線</span>
+      </div>
+    </div>
+
+    <!-- Coming Soon -->
+    <div class="tool-card coming-soon" data-name="更多工具" data-desc="敬請期待">
+      <div class="tool-icon placeholder">➕</div>
+      <div class="tool-info">
+        <div class="tool-name">更多工具</div>
+        <div class="tool-desc">敬請期待...</div>
+        <span class="coming-soon-badge">即將推出</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- No Results -->
+  <div class="no-results" id="noResults">
+    <div class="icon">🔍</div>
+    <p>搵唔到相關工具</p>
+  </div>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <p>HIS Tools © 2026</p>
+  <p>Powered by Harry Cheng</p>
+</div>
+
+<script>
+// ===== 日期顯示 =====
+function updateDate() {
+  const now = new Date();
+  const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const weekday = days[now.getDay()];
+  
+  document.getElementById('dateMain').textContent = `${month}/${day}`;
+  document.getElementById('dateSub').textContent = weekday;
+}
+updateDate();
+setInterval(updateDate, 60000);
+
+// ===== 天氣（用 Open-Meteo 免費 API，香港） =====
+async function loadWeather() {
+  try {
+    const lat = 22.3193;
+    const lon = 114.1694;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=Asia/Hong_Kong`;
+    
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    if (data.current) {
+      const temp = Math.round(data.current.temperature_2m);
+      const weatherCode = data.current.weather_code;
+      const { icon } = getWeatherInfo(weatherCode);
+      
+      document.getElementById('weatherBox').innerHTML = `
+        <span class="weather-icon">${icon}</span>
+        <span class="weather-temp">${temp}°</span>
+      `;
+    }
+  } catch (err) {
+    document.getElementById('weatherBox').innerHTML = '<span class="weather-loading">--</span>';
+  }
+}
+
+function getWeatherInfo(code) {
+  const weatherMap = {
+    0: { icon: '☀️' }, 1: { icon: '🌤️' }, 2: { icon: '⛅' }, 3: { icon: '☁️' },
+    45: { icon: '🌫️' }, 48: { icon: '🌫️' },
+    51: { icon: '🌦️' }, 53: { icon: '🌦️' }, 55: { icon: '🌧️' },
+    61: { icon: '🌦️' }, 63: { icon: '🌧️' }, 65: { icon: '🌧️' },
+    71: { icon: '🌨️' }, 73: { icon: '🌨️' }, 75: { icon: '❄️' },
+    80: { icon: '🌦️' }, 81: { icon: '🌧️' }, 82: { icon: '⛈️' },
+    95: { icon: '⛈️' }, 96: { icon: '⛈️' }, 99: { icon: '⛈️' }
+  };
+  return weatherMap[code] || { icon: '🌡️' };
+}
+
+loadWeather();
+
+// ===== 搜尋功能 =====
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+const toolCards = document.querySelectorAll('.tool-card');
+const noResults = document.getElementById('noResults');
+const toolCount = document.getElementById('toolCount');
+
+searchInput.addEventListener('input', function() {
+  const query = this.value.trim().toLowerCase();
+  let visibleCount = 0;
+  
+  toolCards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const desc = card.dataset.desc.toLowerCase();
+    const match = name.includes(query) || desc.includes(query);
+    card.classList.toggle('hidden', !match);
+    if (match) visibleCount++;
+  });
+  
+  searchClear.classList.toggle('visible', this.value.length > 0);
+  noResults.classList.toggle('visible', visibleCount === 0);
+  toolCount.textContent = `(${visibleCount})`;
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchInput.dispatchEvent(new Event('input'));
+  searchInput.focus();
+}
+</script>
+
+</body>
+</html>
