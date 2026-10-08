@@ -28,7 +28,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 1. 在本地 OneDrive 目錄中修改 `index.html`
 2. 在瀏覽器中打開本地文件測試
-3. 確認滿意後，呼叫助手執行 J02M
+3. 確認滿意後，呼叫助手執行 J00_TEMP
 4. 助手會自動上傳到 GitHub 同備份到雲端
 
 ### 日常操作
@@ -52,7 +52,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 1. 在飛書多維表格的 **Register List** 中新增或修改工具記錄
    - 必填欄位：HIS Tools（名稱）、Deployed Page（連結）、描述、圖標、狀態
-2. 向助手提出「執行 J01 更新 tools.json」
+2. 向助手提出「執行 J00 更新 tools.json」
 3. 助手會：
    - 讀取 Register List 所有記錄（跳過 Main）
    - 生成 `tools.json`
@@ -65,7 +65,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 2. 加入工具名稱、描述、圖標、連結
 3. 更新搜尋用嘅 `data-name` 同 `data-desc`
 4. 本地測試
-5. 執行 J02M 上傳（版本號自動 +0.01）
+5. 執行 J00_TEMP 上傳（版本號自動 +0.01）
 
 ---
 
@@ -74,7 +74,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 ### 版本號規則
 
 - 格式：`vMAJOR.MINOR`（例如 v1.00, v1.01, v1.02）
-- **每次 J02M/J02 更新，版本號自動 +0.01**
+- **每次 J00_TEMP/J02 更新，版本號自動 +0.01**
 - MAJOR 版本：重大架構改動（手動調整）
 - MINOR 版本：每次功能更新/修改自動遞增
 
@@ -92,7 +92,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 | 日期 | 版本 | 改動內容 |
 |------|------|----------|
 | 2026-10-08 | **v1.00** | 初始版本。Mobile Friendly Landing Page，包含：巴士到站查詢工具、搜尋欄、實時天氣（Open-Meteo）、日期顯示、Calendar Mobile Deeplink（iOS calshow://、Android googlecalendar://）、香港天文台連結、城巴 Logo |
-| 2026-10-08 | **v1.01** | 工具列表改為動態讀取 tools.json（由 Register List 生成），不再寫死。新增 tools.json 文件。J01 負責從 Register List 生成 tools.json 並上傳。
+| 2026-10-08 | **v1.01** | 工具列表改為動態讀取 tools.json（由 Register List 生成），不再寫死。新增 tools.json 文件。J00 負責從 Register List 生成 tools.json 並上傳。
 
 ---
 
@@ -168,7 +168,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 ## Business Flow
 
-### J02M：HIS Main Page 更新與備份
+### J00_TEMP：HIS Main Page 更新與備份
 
 ```
 觸發：用戶提出更新要求 或 直接呼叫備份
@@ -219,7 +219,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 ```
 his-tools/
 ├── index.html              # Landing Page 主頁面（動態讀取 tools.json）
-├── tools.json              # 工具列表（由 Register List 生成，J01 負責更新）
+├── tools.json              # 工具列表（由 Register List 生成，J00 負責更新）
 ├── citybus-logo.png        # 城巴 Logo
 └── README.md               # 本文件（含 Version Control）
 ```
@@ -262,7 +262,7 @@ A:
 2. 修改工具名稱、描述、圖標、連結
 3. 更新 `data-name` 同 `data-desc` 用於搜尋
 4. 本地測試
-5. 執行 J02M 上傳到 GitHub（版本號自動 +0.01）
+5. 執行 J00_TEMP 上傳到 GitHub（版本號自動 +0.01）
 
 ### Q: 可以自訂天氣位置嗎？
 
@@ -281,7 +281,7 @@ A: `openCalendar()` 函數會檢測用戶設備：
 
 ### Q: 版本號點樣更新？
 
-A: 每次執行 J02M/J02 更新，版本號自動 +0.01。例如 v1.00 → v1.01 → v1.02。HTML 底部都會同步更新顯示。
+A: 每次執行 J00_TEMP/J02 更新，版本號自動 +0.01。例如 v1.00 → v1.01 → v1.02。HTML 底部都會同步更新顯示。
 
 ### Q: 搜尋支援邊啲語言？
 
