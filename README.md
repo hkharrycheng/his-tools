@@ -197,7 +197,14 @@ A: 可以。修改 `loadWeather()` 函數中嘅 `lat` 同 `lon` 變數就得。�
 
 ### Q: 點解日期係 MM/DD 格式？
 
-A: 為咗節省 Header 空間，用咗簡潔嘅 MM/DD 格式。完整日期可以點擊打開 Google Calendar 查看。
+A: 為咗節省 Header 空間，用咗簡潔嘅 MM/DD 格式。點擊日期會直接打開你手機嘅 Calendar App（iOS 用 calshow://，Android 優先 googlecalendar://）。
+
+### Q: Calendar Deeplink 點樣運作？
+
+A: `openCalendar()` 函數會檢測用戶設備：
+- **iOS**: 用 `calshow://` deeplink 直接打開系統日曆 App
+- **Android**: 優先嘗試 `googlecalendar://`，失敗則打開網頁版 Google Calendar
+- **桌面**: 打開網頁版 Google Calendar
 
 ### Q: 搜尋支援邊啲語言？
 
@@ -218,6 +225,7 @@ A: 支援中英文搜尋。比對工具名稱（`data-name`）同描述（`data-
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
+| 2026-10-08 | v1.1 | Calendar 改用 Mobile Deeplink，iOS 用 calshow:// 直接打開系統日曆 App，Android 優先嘗試 googlecalendar:// |
 | 2026-10-08 | v1.0 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具 |
 
 ---
