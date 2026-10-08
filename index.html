@@ -355,7 +355,7 @@
     </div>
   </div>
   <div class="header-right">
-    <a class="header-date" href="https://calendar.google.com/calendar/u/0/r?pli=1" target="_blank">
+    <a class="header-date" href="javascript:void(0)" onclick="openCalendar()">
       <div class="date-main" id="dateMain">載入中...</div>
       <div class="date-sub" id="dateSub"></div>
     </a>
@@ -421,6 +421,31 @@
 </div>
 
 <script>
+// ===== 打開 Calendar App (Mobile Deeplink) =====
+function openCalendar() {
+  const ua = navigator.userAgent.toLowerCase();
+  const isIOS = /iphone|ipad|ipod/.test(ua);
+  const isAndroid = /android/.test(ua);
+  
+  if (isIOS) {
+    // iOS: 打開系統日曆 App
+    window.location.href = 'calshow://';
+  } else if (isAndroid) {
+    // Android: 優先嘗試 Google Calendar App，失敗則打開網頁版
+    try {
+      window.location.href = 'googlecalendar://';
+      setTimeout(() => {
+        window.location.href = 'https://calendar.google.com/calendar/u/0/r?pli=1';
+      }, 500);
+    } catch (e) {
+      window.location.href = 'https://calendar.google.com/calendar/u/0/r?pli=1';
+    }
+  } else {
+    // 桌面: 打開網頁版 Google Calendar
+    window.open('https://calendar.google.com/calendar/u/0/r?pli=1', '_blank');
+  }
+}
+
 // ===== 日期顯示 =====
 function updateDate() {
   const now = new Date();
