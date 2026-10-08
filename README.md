@@ -2,15 +2,18 @@
 
 Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Page。
 
+**當前版本：v1.00**
+
 ---
 
 ## 📋 目錄
 
 1. [ADMIN 使用說明](#admin-使用說明)
-2. [Logic Flow](#logic-flow)
-3. [Business Flow](#business-flow)
-4. [文件結構](#文件結構)
-5. [常見問題](#常見問題)
+2. [Version Control](#version-control)
+3. [Logic Flow](#logic-flow)
+4. [Business Flow](#business-flow)
+5. [文件結構](#文件結構)
+6. [常見問題](#常見問題)
 
 ---
 
@@ -37,8 +40,10 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 3. 向助手提出更新要求
 4. 助手建立 Prototype 讓你測試
 5. 你答「OK」後，助手會：
+   - **自動將版本號 +0.01**（例如 v1.00 → v1.01）
+   - 更新 HTML 底部版本顯示（例如 `HIS Tools © 2026.1.01`）
    - 上傳到 GitHub
-   - 更新 README.md
+   - 更新 README.md（記錄本次改動）
    - 備份整個 Repository 到雲端
 
 #### 新增工具
@@ -47,7 +52,33 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 2. 加入工具名稱、描述、圖標、連結
 3. 更新搜尋用嘅 `data-name` 同 `data-desc`
 4. 本地測試
-5. 執行 J02M 上傳
+5. 執行 J02M 上傳（版本號自動 +0.01）
+
+---
+
+## Version Control
+
+### 版本號規則
+
+- 格式：`vMAJOR.MINOR`（例如 v1.00, v1.01, v1.02）
+- **每次 J02M/J02 更新，版本號自動 +0.01**
+- MAJOR 版本：重大架構改動（手動調整）
+- MINOR 版本：每次功能更新/修改自動遞增
+
+### HTML 底部版本顯示
+
+格式：`HIS Tools © YYYY.MAJOR.MINOR`
+
+例如：
+- v1.00 → `HIS Tools © 2026.1.00`
+- v1.01 → `HIS Tools © 2026.1.01`
+- v1.02 → `HIS Tools © 2026.1.02`
+
+### 版本歷史
+
+| 日期 | 版本 | 改動內容 |
+|------|------|----------|
+| 2026-10-08 | **v1.00** | 初始版本。Mobile Friendly Landing Page，包含：巴士到站查詢工具、搜尋欄、實時天氣（Open-Meteo）、日期顯示、Calendar Mobile Deeplink（iOS calshow://、Android googlecalendar://）、香港天文台連結、城巴 Logo |
 
 ---
 
@@ -74,10 +105,24 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
         ▼
   頁面就緒
         │
-        ├─ 點擊日期 → 打開 Google Calendar
+        ├─ 點擊日期 → openCalendar() → 打開 Calendar App
         ├─ 點擊天氣 → 打開香港天文台
         ├─ 點擊工具卡片 → 打開對應工具
         └─ 輸入搜尋 → 即時過濾工具卡片
+```
+
+### Calendar Deeplink 流程
+
+```
+用戶點擊日期
+        │
+        ▼
+  openCalendar()
+        │
+        ├─ iOS → calshow:// → 系統日曆 App
+        ├─ Android → googlecalendar:// → Google Calendar App
+        │   └─ 失敗 → 網頁版 Google Calendar
+        └─ 桌面 → 網頁版 Google Calendar
 ```
 
 ### 搜尋功能流程
@@ -117,12 +162,16 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
         │   ├─ 用戶答「OK」→ 繼續
         │   └─ 用戶要求修改 → 回到步驟 1
         │
-        ├─ 3. 更新 GitHub
+        ├─ 3. 版本號自動 +0.01
+        │   ├─ 更新 HTML 底部版本顯示
+        │   └─ 更新 README.md 版本歷史
+        │
+        ├─ 4. 更新 GitHub
         │   ├─ 上傳修改後嘅 index.html
         │   ├─ 上傳相關資源（圖片等）
         │   └─ 更新 README.md
         │
-        └─ 4. 備份 Repository → 跳到情況 B
+        └─ 5. 備份 Repository → 跳到情況 B
         │
   情況 B：直接備份
         │
@@ -150,7 +199,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 his-tools/
 ├── index.html              # Landing Page 主頁面
 ├── citybus-logo.png        # 城巴 Logo
-└── README.md               # 本文件
+└── README.md               # 本文件（含 Version Control）
 ```
 
 ### 本地 OneDrive 目錄
@@ -158,17 +207,17 @@ his-tools/
 ```
 D:\OneDrive\Harry Information System\豆包Agents Program Backup\Main\
 ├── index.html              # Landing Page 主頁面（本地開發版）
-└── citybus-logo.png        # 城巴 Logo
+├── citybus-logo.png        # 城巴 Logo
+└── README.md               # 說明文件
 ```
 
 ### 飛書雲端備份
 
 ```
-HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
+HIS Main/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 ├── index.html
 ├── citybus-logo.png
-├── README.md
-└── his-tools-backup-YYYYMMDD-HHMMSS.zip
+└── README.md
 ```
 
 ---
@@ -189,7 +238,7 @@ A:
 2. 修改工具名稱、描述、圖標、連結
 3. 更新 `data-name` 同 `data-desc` 用於搜尋
 4. 本地測試
-5. 執行 J02M 上傳到 GitHub
+5. 執行 J02M 上傳到 GitHub（版本號自動 +0.01）
 
 ### Q: 可以自訂天氣位置嗎？
 
@@ -206,6 +255,10 @@ A: `openCalendar()` 函數會檢測用戶設備：
 - **Android**: 優先嘗試 `googlecalendar://`，失敗則打開網頁版 Google Calendar
 - **桌面**: 打開網頁版 Google Calendar
 
+### Q: 版本號點樣更新？
+
+A: 每次執行 J02M/J02 更新，版本號自動 +0.01。例如 v1.00 → v1.01 → v1.02。HTML 底部都會同步更新顯示。
+
 ### Q: 搜尋支援邊啲語言？
 
 A: 支援中英文搜尋。比對工具名稱（`data-name`）同描述（`data-desc`），大小寫不敏感。
@@ -218,15 +271,6 @@ A: 支援中英文搜尋。比對工具名稱（`data-name`）同描述（`data-
 - **巴士到站查詢**: https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html
 - **香港天文台**: https://www.hko.gov.hk/
 - **Google Calendar**: https://calendar.google.com/
-
----
-
-## 更新記錄
-
-| 日期 | 版本 | 說明 |
-|------|------|------|
-| 2026-10-08 | v1.1 | Calendar 改用 Mobile Deeplink，iOS 用 calshow:// 直接打開系統日曆 App，Android 優先嘗試 googlecalendar:// |
-| 2026-10-08 | v1.0 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具 |
 
 ---
 
