@@ -2,7 +2,7 @@
 
 Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Page。
 
-**當前版本：v1.00**
+**當前版本：v1.01**
 
 ---
 
@@ -46,6 +46,19 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
    - 更新 README.md（記錄本次改動）
    - 備份整個 Repository 到雲端
 
+#### 更新工具列表（透過 Register List）
+
+工具列表不再寫死在 HTML 中，而是由 `tools.json` 動態讀取。
+
+1. 在飛書多維表格的 **Register List** 中新增或修改工具記錄
+   - 必填欄位：HIS Tools（名稱）、Deployed Page（連結）、描述、圖標、狀態
+2. 向助手提出「執行 J01 更新 tools.json」
+3. 助手會：
+   - 讀取 Register List 所有記錄（跳過 Main）
+   - 生成 `tools.json`
+   - 上傳到 GitHub his-tools repo
+4. 刷新 HIS Tools 頁面即可看到更新
+
 #### 新增工具
 
 1. 在 `index.html` 嘅 `.tool-grid` 中新增工具卡片
@@ -70,7 +83,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 格式：`HIS Tools © YYYY.MAJOR.MINOR`
 
 例如：
-- v1.00 → `HIS Tools © 2026.1.00`
+- v1.00 → `HIS Tools © 2026.1.01`
 - v1.01 → `HIS Tools © 2026.1.01`
 - v1.02 → `HIS Tools © 2026.1.02`
 
@@ -79,6 +92,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 | 日期 | 版本 | 改動內容 |
 |------|------|----------|
 | 2026-10-08 | **v1.00** | 初始版本。Mobile Friendly Landing Page，包含：巴士到站查詢工具、搜尋欄、實時天氣（Open-Meteo）、日期顯示、Calendar Mobile Deeplink（iOS calshow://、Android googlecalendar://）、香港天文台連結、城巴 Logo |
+| 2026-10-08 | **v1.01** | 工具列表改為動態讀取 tools.json（由 Register List 生成），不再寫死。新增 tools.json 文件。J01 負責從 Register List 生成 tools.json 並上傳。
 
 ---
 
@@ -101,6 +115,13 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
         ├─ 呼叫 Open-Meteo API（香港坐標）
         ├─ 獲取溫度同天氣代碼
         └─ 顯示天氣圖標 + 溫度
+        │
+        ▼
+  loadTools()
+        │
+        ├─ fetch('tools.json')
+        ├─ 解析工具列表
+        └─ 動態渲染工具卡片
         │
         ▼
   頁面就緒
@@ -197,7 +218,8 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 ```
 his-tools/
-├── index.html              # Landing Page 主頁面
+├── index.html              # Landing Page 主頁面（動態讀取 tools.json）
+├── tools.json              # 工具列表（由 Register List 生成，J01 負責更新）
 ├── citybus-logo.png        # 城巴 Logo
 └── README.md               # 本文件（含 Version Control）
 ```
@@ -207,6 +229,7 @@ his-tools/
 ```
 D:\OneDrive\Harry Information System\豆包Agents Program Backup\Main\
 ├── index.html              # Landing Page 主頁面（本地開發版）
+├── tools.json              # 工具列表（由 Register List 生成）
 ├── citybus-logo.png        # 城巴 Logo
 └── README.md               # 說明文件
 ```
@@ -216,6 +239,7 @@ D:\OneDrive\Harry Information System\豆包Agents Program Backup\Main\
 ```
 HIS Main/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 ├── index.html
+├── tools.json
 ├── citybus-logo.png
 └── README.md
 ```
@@ -277,3 +301,4 @@ A: 支援中英文搜尋。比對工具名稱（`data-name`）同描述（`data-
 ## License
 
 MIT License
+
