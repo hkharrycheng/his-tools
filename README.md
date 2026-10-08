@@ -2,7 +2,7 @@
 
 Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Page。
 
-**當前版本：v1.01**
+**當前版本：v1.02**
 
 ---
 
@@ -12,7 +12,8 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 2. [Version Control](#version-control)
 3. [Logic Flow](#logic-flow)
 4. [Business Flow](#business-flow)
-5. [文件結構](#文件結構)
+5. [豆包 Agent 觸發工作流程](#-豆包-agent-觸發工作流程)
+6. [文件結構](#文件結構)
 6. [常見問題](#常見問題)
 
 ---
@@ -211,6 +212,153 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 ```
 
 ---
+
+
+---
+
+## 🤖 豆包 Agent 觸發工作流程
+
+本項目由豆包 Agent 驅動，所有代碼更新、上傳 GitHub 同備份雲端都透過預定義嘅 JOB 觸發。
+
+### 核心概念
+
+| 概念 | 說明 | 位置 |
+|------|------|------|
+| **Register List** | 記錄所有 HIS Tools 嘅 GitHub Repo、本地 Onedrive 路徑、Deployed Page、Related Job | 飛書多維表格 |
+| **常數設定表** | 定義所有 JOB 嘅工作名、工作詳細、Parameter | 飛書多維表格 |
+| **JOB** | 預定義嘅工作流程，由用戶呼叫 Agent 觸發 | 常數設定表 |
+| **Prototype** | 喺本地 Onedrive 目錄中建立嘅測試版本 | 本地 OneDrive |
+| **Version** | 每次更新自動 +0.01 | README.md + HTML 底部 |
+
+### JOB 一覽
+
+| JOB | 工作名 | 觸發時機 |
+|-----|--------|----------|
+| **J00** | JSON 生成與上傳 | 更新巴士常用路線 favorites.json 或工具列表 tools.json |
+| **J01** | HIS Main Page 更新與備份 | 更新 Landing Page (index.html) |
+| **J02** | 巴士到站 Enhancement | 更新巴士到站 HTML/Workflow |
+| **J03** | 外幣兌換率更新與備份 | 更新外幣兌換率 HTML |
+
+> **注意**：所有 JOB 只在對應嘅 Chat 中有效，開新 Chat 需要重新設定或參考常數設定表。
+
+### 標準工作流程（J01-J03）
+
+`
+用戶提出更新要求
+        │
+        ▼
+1. Agent 從 Register List 查找對應嘅本地 Onedrive Repository 路徑
+        │
+        ▼
+2. 嚴格在該 Onedrive 目錄中建立 Prototype
+   - 修改 HTML/CSS/JS
+   - 本地測試
+        │
+        ▼
+3. 用戶在本地瀏覽器打開 file:// 測試
+        │
+        ▼
+4. 用戶說「OK」後，Agent 先由 Onedrive 目錄上傳到 GitHub
+   - 更新 index.html / bus-eta.html 等
+   - 更新 README.md（ADMIN 使用說明、Logic Flow、Business Flow、Version Control）
+   - 版本號自動 +0.01
+        │
+        ▼
+5. Agent 由 Onedrive 目錄備份到飛書雲端
+   - 備份根文件夾：HIS Tools
+   - 工具子文件夾：HIS Main / Bus ETA / Currency Exchange
+   - 版本子文件夾：v{版本號}（例如 v1.01）
+   - 完整路徑：HIS Tools/{工具名}/v{版本號}/
+        │
+        ▼
+完成 ✅
+`
+
+### J00 工作流程（JSON 生成）
+
+`
+用戶呼叫「執行 J00」
+        │
+        ▼
+1. 讀取 Parameters 確認模式：
+   - 巴士常用路線模式：讀取常用路線表 → 生成 favorites.json → 上傳 bus-eta-sync repo
+   - 工具列表模式：讀取 Register List（跳過 Main）→ 生成 tools.json → 上傳 his-tools repo
+        │
+        ▼
+2. 生成 JSON 文件
+        │
+        ▼
+3. 上傳到對應 GitHub Repo
+        │
+        ▼
+4. 回傳上傳結果
+        │
+        ▼
+完成 ✅
+`
+
+### Register List 欄位說明
+
+| 欄位 | 說明 |
+|------|------|
+| HIS Tools | 工具名稱 |
+| Related Job | 關聯嘅 JOB（連結到常數設定表） |
+| 本地 Onedrive Repository | 本地開發目錄路徑 |
+| GitHub Repository | GitHub Repo 連結 |
+| Deployed Page | GitHub Pages 部署連結 |
+| 描述 | 工具描述（顯示喺 Landing Page） |
+| 圖標 | 工具圖標（emoji，顯示喺 Landing Page） |
+| 狀態 | 已上線 / 即將推出 / 開發中 |
+
+### 備份路徑結構
+
+`
+HIS Tools/ (J4rkfFNROll0lKdZ6Brcwoqxn3c)
+├── HIS Main/          ← J01
+│   ├── v1.00/
+│   │   ├── index.html
+│   │   ├── citybus-logo.png
+│   │   └── README.md
+│   └── v1.01/
+│       ├── index.html
+│       ├── tools.json
+│       ├── citybus-logo.png
+│       └── README.md
+├── Bus ETA/           ← J02
+│   └── v1.xx/
+│       └── ...
+└── Currency Exchange/ ← J03
+    └── v1.00/
+        ├── index.html
+        └── README.md
+`
+
+### 版本控制規則
+
+- 格式：MAJOR.MINOR（例如 v1.00, v1.01）
+- 每次 J01/J02/J03 更新，版本號自動 +0.01
+- HTML 底部顯示：HIS Tools © YYYY.MAJOR.MINOR
+- README.md 嘅 Version Control 章節記錄每次改動
+
+### 觸發範例
+
+**更新 Landing Page：**
+> 用戶：「J01，幫我加個新工具卡片」
+> 
+> Agent：1. 讀取 Register List → 找到 Main 嘅本地路徑
+> 2. 喺 OneDrive 目錄修改 index.html
+> 3. 用戶本地測試
+> 4. 用戶說「OK」
+> 5. 上傳 GitHub + 更新 README（v1.01 → v1.02）
+> 6. 備份到 HIS Tools/HIS Main/v1.02/
+
+**更新工具列表：**
+> 用戶：「J00，更新 tools.json」
+> 
+> Agent：1. 讀取 Register List 所有記錄（跳過 Main）
+> 2. 生成 tools.json
+> 3. 上傳 his-tools repo
+> 4. 回傳結果
 
 ## 文件結構
 
