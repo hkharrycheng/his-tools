@@ -381,29 +381,10 @@
   </div>
   
   <div class="tool-grid" id="toolGrid">
-    
-    <!-- Tool 1: 巴士到站查詢 -->
-    <div class="tool-card" data-name="巴士到站查詢" data-desc="九巴城巴新巴小巴實時到站時間常用路線" onclick="window.open('https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html', '_blank')">
-      <div class="tool-icon">
-        <img src="citybus-logo.png" alt="城巴 Logo">
-      </div>
-      <div class="tool-info">
-        <div class="tool-name">巴士到站查詢</div>
-        <div class="tool-desc">九巴、城巴/新巴、小巴實時到站時間，常用路線一覽</div>
-        <span class="tool-badge">已上線</span>
-      </div>
+    <div class="loading" id="toolsLoading">
+      <div class="spinner">🔄</div>
+      <p>載入工具列表...</p>
     </div>
-
-    <!-- Coming Soon -->
-    <div class="tool-card coming-soon" data-name="更多工具" data-desc="敬請期待">
-      <div class="tool-icon placeholder">➕</div>
-      <div class="tool-info">
-        <div class="tool-name">更多工具</div>
-        <div class="tool-desc">敬請期待...</div>
-        <span class="coming-soon-badge">即將推出</span>
-      </div>
-    </div>
-
   </div>
 
   <!-- No Results -->
@@ -501,36 +482,83 @@ function getWeatherInfo(code) {
 
 loadWeather();
 
+// ===== 動態載入工具列表 =====
+let allTools = [];
+
+async function loadTools() {
+  try {
+    const res = await fetch('tools.json?t=' + Date.now());
+    const data = await res.json();
+    allTools = data.tools || [];
+    renderTools(allTools);
+  } catch (err) {
+    document.getElementById('toolsLoading').innerHTML = '<p>載入失敗，使用預設工具</p>';
+    // fallback
+    allTools = [
+      {name: '巴士到站查詢', description: '九巴、城巴/新巴、小巴實時到站時間', icon: '🚌', url: 'https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html', status: '已上線'}
+    ];
+    renderTools(allTools);
+  }
+}
+
+function renderTools(tools) {
+  const grid = document.getElementById('toolGrid');
+  const loading = document.getElementById('toolsLoading');
+  
+  if (loading) loading.remove();
+  
+  let html = '';
+  tools.forEach(tool => {
+    const isComingSoon = tool.status === '即將推出';
+    const iconHtml = tool.icon ? `<div class="tool-icon ${isComingSoon ? 'placeholder' : ''}">${tool.icon}</div>` : '';
+    const badgeClass = isComingSoon ? 'coming-soon-badge' : 'tool-badge';
+    
+    html += `
+      <div class="tool-card ${isComingSoon ? 'coming-soon' : ''}" data-name="${tool.name}" data-desc="${tool.description || ''}" onclick="${tool.url ? `window.open('${tool.url}', '_blank')` : ''}">
+        ${iconHtml}
+        <div class="tool-info">
+          <div class="tool-name">${tool.name}</div>
+          <div class="tool-desc">${tool.description || ''}</div>
+          <span class="${badgeClass}">${tool.status || '已上線'}</span>
+        </div>
+      </div>
+    `;
+  });
+  
+  grid.innerHTML = html;
+  document.getElementById('toolCount').textContent = `(${tools.length})`;
+}
+
 // ===== 搜尋功能 =====
 const searchInput = document.getElementById('searchInput');
 const searchClear = document.getElementById('searchClear');
-const toolCards = document.querySelectorAll('.tool-card');
 const noResults = document.getElementById('noResults');
 const toolCount = document.getElementById('toolCount');
 
 searchInput.addEventListener('input', function() {
   const query = this.value.trim().toLowerCase();
-  let visibleCount = 0;
-  
-  toolCards.forEach(card => {
-    const name = card.dataset.name.toLowerCase();
-    const desc = card.dataset.desc.toLowerCase();
-    const match = name.includes(query) || desc.includes(query);
-    card.classList.toggle('hidden', !match);
-    if (match) visibleCount++;
+  const filtered = allTools.filter(tool => {
+    const name = (tool.name || '').toLowerCase();
+    const desc = (tool.description || '').toLowerCase();
+    return name.includes(query) || desc.includes(query);
   });
   
+  renderTools(filtered);
   searchClear.classList.toggle('visible', this.value.length > 0);
-  noResults.classList.toggle('visible', visibleCount === 0);
-  toolCount.textContent = `(${visibleCount})`;
+  noResults.classList.toggle('visible', filtered.length === 0);
 });
 
 function clearSearch() {
   searchInput.value = '';
-  searchInput.dispatchEvent(new Event('input'));
+  renderTools(allTools);
+  noResults.classList.remove('visible');
   searchInput.focus();
 }
+
+// 初始化
+loadTools();
 </script>
 
 </body>
 </html>
+
