@@ -328,15 +328,6 @@ A: 支援中英文搜尋。比對工具名稱同描述，大小寫不敏感。
 
 ---
 
-## 更新記錄
-
-| 日期 | 版本 | 說明 |
-|------|------|------|
-| 2026-10-08 | v1.1 | Calendar 改用 Mobile Deeplink，iOS 用 calshow:// 直接打開系統日曆 App，Android 優先嘗試 googlecalendar:// |
-| 2026-10-08 | v1.0 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具 |
-
----
-
 ## License
 
 MIT License
