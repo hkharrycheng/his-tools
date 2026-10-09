@@ -1,27 +1,34 @@
-{
-    "tools":  [
-                  {
-                      "url":  "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
-                      "icon":  "🚌",
-                      "description":  "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
-                      "name":  "巴士到站時間",
-                      "status":  "已上線"
-                  },
-                  {
-                      "url":  "https://hkharrycheng.github.io/currency-exchange/",
-                      "icon":  "💱",
-                      "description":  "實時外幣兌換率查詢 + 夾錢計算",
-                      "name":  "外幣夾錢",
-                      "status":  "已上線"
-                  },
-                  {
-                      "url":  "https://hkharrycheng.github.io/food-arrival/",
-                      "icon":  "🍽️",
-                      "description":  "餐廳用餐記錄工具，分次下單、自動計時",
-                      "name":  "點餐清單工具",
-                      "status":  "已上線"
-                  }
-              ],
-    "updated_at":  "2026-10-08 23:07:57",
-    "count":  3
-}
+[
+  {
+    "name": "巴士到站時間",
+    "icon": "🚌",
+    "status": "已上線",
+    "github": "https://github.com/hkharrycheng/bus-eta-sync",
+    "url": "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
+    "description": "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽"
+  },
+  {
+    "name": "外幣夾錢",
+    "icon": "💱",
+    "status": "已上線",
+    "github": "https://github.com/hkharrycheng/currency-exchange",
+    "url": "https://hkharrycheng.github.io/currency-exchange/",
+    "description": "實時外幣兌換率查詢 + 夾錢計算"
+  },
+  {
+    "name": "點餐清單工具",
+    "icon": "🍽️",
+    "status": "已上線",
+    "github": "https://github.com/hkharrycheng/food-arrival",
+    "url": "https://hkharrycheng.github.io/food-arrival/",
+    "description": "餐廳用餐記錄工具"
+  },
+  {
+    "name": "貨品監控助手",
+    "icon": "📦",
+    "status": "已上線",
+    "github": "https://github.com/hkharrycheng/purchase-target",
+    "url": "https://hkharrycheng.github.io/purchase-target/",
+    "description": "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析"
+  }
+]
