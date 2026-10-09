@@ -24,7 +24,7 @@
     align-items: center;
     gap: 12px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
   .header::before {
     content: '';
@@ -254,7 +254,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
   .tool-card:active {
     transform: scale(0.98);
@@ -282,7 +282,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    overflow: hidden;
+    overflow: visible;
     background: white;
     font-size: 28px;
   }
@@ -306,6 +306,8 @@
     font-size: 12px;
     color: #8b949e;
     line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .tool-badge {
     display: inline-block;
@@ -568,7 +570,7 @@ const DEFAULT_TOOLS = [
     name: "學生成績記錄",
     icon: "📚",
     url: "https://hkharrycheng.github.io/student-record/",
-    description: "帶密碼保護的學生成績記錄系統，追蹤Cici和Coco的練習、測驗及考試成績",
+    description: "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
     status: "已上線",
     tags: ["學業"]
   },
