@@ -1,52 +1,65 @@
-[
-    {
-        "name":  "Main",
-        "tags":  [
-
-                 ],
-        "description":  "HIS Tools 主頁，所有工具入口",
-        "icon":  "🏠",
-        "url":  "https://hkharrycheng.github.io/his-tools/",
-        "status":  "已上線"
-    },
-    {
-        "name":  "巴士到站時間",
-        "tags":  [
-                     "交通"
-                 ],
-        "description":  "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
-        "icon":  "🚌",
-        "url":  "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
-        "status":  "已上線"
-    },
-    {
-        "name":  "外幣夾錢",
-        "tags":  [
-                     "購物"
-                 ],
-        "description":  "實時外幣兌換率查詢 + 夾錢計算",
-        "icon":  "💱",
-        "url":  "https://hkharrycheng.github.io/currency-exchange/",
-        "status":  "已上線"
-    },
-    {
-        "name":  "點餐清單工具",
-        "tags":  [
-                     "社交"
-                 ],
-        "description":  "餐廳用餐記錄工具",
-        "icon":  "🍽️",
-        "url":  "https://hkharrycheng.github.io/food-arrival/",
-        "status":  "已上線"
-    },
-    {
-        "name":  "貨品監控助手",
-        "tags":  [
-                     "社交"
-                 ],
-        "description":  "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析",
-        "icon":  "📦",
-        "url":  "https://hkharrycheng.github.io/purchase-target/",
-        "status":  "已上線"
-    }
-]
+{
+    "tools":  [
+                  {
+                      "name":  "巴士到站時間",
+                      "tags":  [
+                                   "交通"
+                               ],
+                      "description":  "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
+                      "icon":  "🚌",
+                      "status":  [
+                                     "已上線"
+                                 ],
+                      "url":  "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html"
+                  },
+                  {
+                      "name":  "外幣夾錢",
+                      "tags":  [
+                                   "社交"
+                               ],
+                      "description":  "實時外幣兌換率查詢 + 夾錢計算",
+                      "icon":  "💱",
+                      "status":  [
+                                     "已上線"
+                                 ],
+                      "url":  "https://hkharrycheng.github.io/currency-exchange/"
+                  },
+                  {
+                      "name":  "點餐清單工具",
+                      "tags":  [
+                                   "社交"
+                               ],
+                      "description":  "餐廳用餐記錄工具",
+                      "icon":  "🍽️",
+                      "status":  [
+                                     "已上線"
+                                 ],
+                      "url":  ""
+                  },
+                  {
+                      "name":  "貨品監控助手",
+                      "tags":  [
+                                   "購物"
+                               ],
+                      "description":  "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析",
+                      "icon":  "📦",
+                      "status":  [
+                                     "已上線"
+                                 ],
+                      "url":  "https://hkharrycheng.github.io/purchase-target/"
+                  },
+                  {
+                      "name":  "學生成績記錄",
+                      "tags":  [
+                                   "學業"
+                               ],
+                      "description":  "帶密碼保護的學生成績記錄系統",
+                      "icon":  "📚",
+                      "status":  [
+                                     "已上線"
+                                 ],
+                      "url":  "https://hkharrycheng.github.io/student-record/"
+                  }
+              ],
+    "generatedAt":  "2026-10-09 22:59:20"
+}
