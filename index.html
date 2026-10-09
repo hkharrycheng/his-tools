@@ -377,14 +377,53 @@
 
   <div class="section-title">
     實用工具
-    <span class="count" id="toolCount">(1)</span>
+    <span class="count" id="toolCount">(4)</span>
   </div>
   
   <div class="tool-grid" id="toolGrid">
-    <div class="loading" id="toolsLoading">
-      <div class="spinner">🔄</div>
-      <p>載入工具列表...</p>
+    
+    <!-- Tool 1: 巴士到站查詢 -->
+    <div class="tool-card" data-name="巴士到站查詢" data-desc="九巴城巴新巴小巴實時到站時間常用路線" onclick="window.open('https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html', '_blank')">
+      <div class="tool-icon">
+        <img src="citybus-logo.png" alt="城巴 Logo">
+      </div>
+      <div class="tool-info">
+        <div class="tool-name">巴士到站查詢</div>
+        <div class="tool-desc">九巴、城巴/新巴、小巴實時到站時間，常用路線一覽</div>
+        <span class="tool-badge">已上線</span>
+      </div>
     </div>
+
+    <!-- Tool 2: 外幣兌換率 -->
+    <div class="tool-card" data-name="外幣兌換率" data-desc="實時外幣兌換率查詢夾錢計算" onclick="window.open('https://hkharrycheng.github.io/currency-exchange/', '_blank')">
+      <div class="tool-icon">💱</div>
+      <div class="tool-info">
+        <div class="tool-name">外幣兌換率</div>
+        <div class="tool-desc">實時外幣兌換率查詢 + 夾錢計算</div>
+        <span class="tool-badge">已上線</span>
+      </div>
+    </div>
+
+    <!-- Tool 3: 點餐清單工具 -->
+    <div class="tool-card" data-name="點餐清單工具" data-desc="餐廳用餐記錄工具上菜checklist" onclick="window.open('https://hkharrycheng.github.io/food-arrival/', '_blank')">
+      <div class="tool-icon">🍽️</div>
+      <div class="tool-info">
+        <div class="tool-name">點餐清單工具</div>
+        <div class="tool-desc">餐廳用餐記錄工具，上菜 Checklist</div>
+        <span class="tool-badge">已上線</span>
+      </div>
+    </div>
+
+    <!-- Tool 4: 貨品監控助手 -->
+    <div class="tool-card" data-name="貨品監控助手" data-desc="監控心儀貨品價格變化價格跌價分析" onclick="window.open('https://hkharrycheng.github.io/purchase-target/', '_blank')">
+      <div class="tool-icon">📦</div>
+      <div class="tool-info">
+        <div class="tool-name">貨品監控助手</div>
+        <div class="tool-desc">監控心儀貨品價格變化，行/水貨跌價分析</div>
+        <span class="tool-badge">已上線</span>
+      </div>
+    </div>
+
   </div>
 
   <!-- No Results -->
@@ -397,7 +436,7 @@
 
 <!-- ===== Footer ===== -->
 <div class="footer">
-  <p>HIS Tools © 2026.1.02</p>
+  <p>HIS Tools © 2026</p>
   <p>Powered by Harry Cheng</p>
 </div>
 
@@ -482,83 +521,36 @@ function getWeatherInfo(code) {
 
 loadWeather();
 
-// ===== 動態載入工具列表 =====
-let allTools = [];
-
-async function loadTools() {
-  try {
-    const res = await fetch('tools.json?t=' + Date.now());
-    const data = await res.json();
-    allTools = data.tools || [];
-    renderTools(allTools);
-  } catch (err) {
-    document.getElementById('toolsLoading').innerHTML = '<p>載入失敗，使用預設工具</p>';
-    // fallback
-    allTools = [
-      {name: '巴士到站查詢', description: '九巴、城巴/新巴、小巴實時到站時間', icon: '🚌', url: 'https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html', status: '已上線'}
-    ];
-    renderTools(allTools);
-  }
-}
-
-function renderTools(tools) {
-  const grid = document.getElementById('toolGrid');
-  const loading = document.getElementById('toolsLoading');
-  
-  if (loading) loading.remove();
-  
-  let html = '';
-  tools.forEach(tool => {
-    const isComingSoon = tool.status === '即將推出';
-    const iconHtml = tool.icon ? `<div class="tool-icon ${isComingSoon ? 'placeholder' : ''}">${tool.icon}</div>` : '';
-    const badgeClass = isComingSoon ? 'coming-soon-badge' : 'tool-badge';
-    
-    html += `
-      <div class="tool-card ${isComingSoon ? 'coming-soon' : ''}" data-name="${tool.name}" data-desc="${tool.description || ''}" onclick="${tool.url ? `window.open('${tool.url}', '_blank')` : ''}">
-        ${iconHtml}
-        <div class="tool-info">
-          <div class="tool-name">${tool.name}</div>
-          <div class="tool-desc">${tool.description || ''}</div>
-          <span class="${badgeClass}">${tool.status || '已上線'}</span>
-        </div>
-      </div>
-    `;
-  });
-  
-  grid.innerHTML = html;
-  document.getElementById('toolCount').textContent = `(${tools.length})`;
-}
-
 // ===== 搜尋功能 =====
 const searchInput = document.getElementById('searchInput');
 const searchClear = document.getElementById('searchClear');
+const toolCards = document.querySelectorAll('.tool-card');
 const noResults = document.getElementById('noResults');
 const toolCount = document.getElementById('toolCount');
 
 searchInput.addEventListener('input', function() {
   const query = this.value.trim().toLowerCase();
-  const filtered = allTools.filter(tool => {
-    const name = (tool.name || '').toLowerCase();
-    const desc = (tool.description || '').toLowerCase();
-    return name.includes(query) || desc.includes(query);
+  let visibleCount = 0;
+  
+  toolCards.forEach(card => {
+    const name = card.dataset.name.toLowerCase();
+    const desc = card.dataset.desc.toLowerCase();
+    const match = name.includes(query) || desc.includes(query);
+    card.classList.toggle('hidden', !match);
+    if (match) visibleCount++;
   });
   
-  renderTools(filtered);
   searchClear.classList.toggle('visible', this.value.length > 0);
-  noResults.classList.toggle('visible', filtered.length === 0);
+  noResults.classList.toggle('visible', visibleCount === 0);
+  toolCount.textContent = `(${visibleCount})`;
 });
 
 function clearSearch() {
   searchInput.value = '';
-  renderTools(allTools);
-  noResults.classList.remove('visible');
+  searchInput.dispatchEvent(new Event('input'));
   searchInput.focus();
 }
-
-// 初始化
-loadTools();
 </script>
 
 </body>
 </html>
-

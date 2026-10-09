@@ -2,19 +2,15 @@
 
 Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Page。
 
-**當前版本：v1.02**
-
 ---
 
 ## 📋 目錄
 
 1. [ADMIN 使用說明](#admin-使用說明)
-2. [Version Control](#version-control)
-3. [Logic Flow](#logic-flow)
-4. [Business Flow](#business-flow)
-5. [豆包 Agent 觸發工作流程](#-豆包-agent-觸發工作流程)
-6. [文件結構](#文件結構)
-6. [常見問題](#常見問題)
+2. [Logic Flow](#logic-flow)
+3. [Business Flow](#business-flow)
+4. [文件結構](#文件結構)
+5. [常見問題](#常見問題)
 
 ---
 
@@ -29,7 +25,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 1. 在本地 OneDrive 目錄中修改 `index.html`
 2. 在瀏覽器中打開本地文件測試
-3. 確認滿意後，呼叫助手執行 J01
+3. 確認滿意後，呼叫助手執行 J02M
 4. 助手會自動上傳到 GitHub 同備份到雲端
 
 ### 日常操作
@@ -41,24 +37,9 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 3. 向助手提出更新要求
 4. 助手建立 Prototype 讓你測試
 5. 你答「OK」後，助手會：
-   - **自動將版本號 +0.01**（例如 v1.00 → v1.01）
-   - 更新 HTML 底部版本顯示（例如 `HIS Tools © 2026.1.01`）
    - 上傳到 GitHub
-   - 更新 README.md（記錄本次改動）
+   - 更新 README.md
    - 備份整個 Repository 到雲端
-
-#### 更新工具列表（透過 Register List）
-
-工具列表不再寫死在 HTML 中，而是由 `tools.json` 動態讀取。
-
-1. 在飛書多維表格的 **Register List** 中新增或修改工具記錄
-   - 必填欄位：HIS Tools（名稱）、Deployed Page（連結）、描述、圖標、狀態
-2. 向助手提出「執行 J00 更新 tools.json」
-3. 助手會：
-   - 讀取 Register List 所有記錄（跳過 Main）
-   - 生成 `tools.json`
-   - 上傳到 GitHub his-tools repo
-4. 刷新 HIS Tools 頁面即可看到更新
 
 #### 新增工具
 
@@ -66,34 +47,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 2. 加入工具名稱、描述、圖標、連結
 3. 更新搜尋用嘅 `data-name` 同 `data-desc`
 4. 本地測試
-5. 執行 J01 上傳（版本號自動 +0.01）
-
----
-
-## Version Control
-
-### 版本號規則
-
-- 格式：`vMAJOR.MINOR`（例如 v1.00, v1.01, v1.02）
-- **每次 J01/J02 更新，版本號自動 +0.01**
-- MAJOR 版本：重大架構改動（手動調整）
-- MINOR 版本：每次功能更新/修改自動遞增
-
-### HTML 底部版本顯示
-
-格式：`HIS Tools © YYYY.MAJOR.MINOR`
-
-例如：
-- v1.00 → `HIS Tools © 2026.1.01`
-- v1.01 → `HIS Tools © 2026.1.01`
-- v1.02 → `HIS Tools © 2026.1.02`
-
-### 版本歷史
-
-| 日期 | 版本 | 改動內容 |
-|------|------|----------|
-| 2026-10-08 | **v1.00** | 初始版本。Mobile Friendly Landing Page，包含：巴士到站查詢工具、搜尋欄、實時天氣（Open-Meteo）、日期顯示、Calendar Mobile Deeplink（iOS calshow://、Android googlecalendar://）、香港天文台連結、城巴 Logo |
-| 2026-10-08 | **v1.01** | 工具列表改為動態讀取 tools.json（由 Register List 生成），不再寫死。新增 tools.json 文件。J00 負責從 Register List 生成 tools.json 並上傳。
+5. 執行 J02M 上傳
 
 ---
 
@@ -118,33 +72,12 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
         └─ 顯示天氣圖標 + 溫度
         │
         ▼
-  loadTools()
-        │
-        ├─ fetch('tools.json')
-        ├─ 解析工具列表
-        └─ 動態渲染工具卡片
-        │
-        ▼
   頁面就緒
         │
-        ├─ 點擊日期 → openCalendar() → 打開 Calendar App
+        ├─ 點擊日期 → 打開 Google Calendar
         ├─ 點擊天氣 → 打開香港天文台
         ├─ 點擊工具卡片 → 打開對應工具
         └─ 輸入搜尋 → 即時過濾工具卡片
-```
-
-### Calendar Deeplink 流程
-
-```
-用戶點擊日期
-        │
-        ▼
-  openCalendar()
-        │
-        ├─ iOS → calshow:// → 系統日曆 App
-        ├─ Android → googlecalendar:// → Google Calendar App
-        │   └─ 失敗 → 網頁版 Google Calendar
-        └─ 桌面 → 網頁版 Google Calendar
 ```
 
 ### 搜尋功能流程
@@ -169,7 +102,7 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 ## Business Flow
 
-### J01：HIS Main Page 更新與備份
+### J02M：HIS Main Page 更新與備份
 
 ```
 觸發：用戶提出更新要求 或 直接呼叫備份
@@ -184,16 +117,12 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
         │   ├─ 用戶答「OK」→ 繼續
         │   └─ 用戶要求修改 → 回到步驟 1
         │
-        ├─ 3. 版本號自動 +0.01
-        │   ├─ 更新 HTML 底部版本顯示
-        │   └─ 更新 README.md 版本歷史
-        │
-        ├─ 4. 更新 GitHub
+        ├─ 3. 更新 GitHub
         │   ├─ 上傳修改後嘅 index.html
         │   ├─ 上傳相關資源（圖片等）
         │   └─ 更新 README.md
         │
-        └─ 5. 備份 Repository → 跳到情況 B
+        └─ 4. 備份 Repository → 跳到情況 B
         │
   情況 B：直接備份
         │
@@ -213,163 +142,15 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 
 ---
 
-
----
-
-## 🤖 豆包 Agent 觸發工作流程
-
-本項目由豆包 Agent 驅動，所有代碼更新、上傳 GitHub 同備份雲端都透過預定義嘅 JOB 觸發。
-
-### 核心概念
-
-| 概念 | 說明 | 位置 |
-|------|------|------|
-| **Register List** | 記錄所有 HIS Tools 嘅 GitHub Repo、本地 Onedrive 路徑、Deployed Page、Related Job | 飛書多維表格 |
-| **常數設定表** | 定義所有 JOB 嘅工作名、工作詳細、Parameter | 飛書多維表格 |
-| **JOB** | 預定義嘅工作流程，由用戶呼叫 Agent 觸發 | 常數設定表 |
-| **Prototype** | 喺本地 Onedrive 目錄中建立嘅測試版本 | 本地 OneDrive |
-| **Version** | 每次更新自動 +0.01 | README.md + HTML 底部 |
-
-### JOB 一覽
-
-| JOB | 工作名 | 觸發時機 |
-|-----|--------|----------|
-| **J00** | JSON 生成與上傳 | 更新巴士常用路線 favorites.json 或工具列表 tools.json |
-| **J01** | HIS Main Page 更新與備份 | 更新 Landing Page (index.html) |
-| **J02** | 巴士到站 Enhancement | 更新巴士到站 HTML/Workflow |
-| **J03** | 外幣兌換率更新與備份 | 更新外幣兌換率 HTML |
-
-> **注意**：所有 JOB 只在對應嘅 Chat 中有效，開新 Chat 需要重新設定或參考常數設定表。
-
-### 標準工作流程（J01-J03）
-
-`
-用戶提出更新要求
-        │
-        ▼
-1. Agent 從 Register List 查找對應嘅本地 Onedrive Repository 路徑
-        │
-        ▼
-2. 嚴格在該 Onedrive 目錄中建立 Prototype
-   - 修改 HTML/CSS/JS
-   - 本地測試
-        │
-        ▼
-3. 用戶在本地瀏覽器打開 file:// 測試
-        │
-        ▼
-4. 用戶說「OK」後，Agent 先由 Onedrive 目錄上傳到 GitHub
-   - 更新 index.html / bus-eta.html 等
-   - 更新 README.md（ADMIN 使用說明、Logic Flow、Business Flow、Version Control）
-   - 版本號自動 +0.01
-        │
-        ▼
-5. Agent 由 Onedrive 目錄備份到飛書雲端
-   - 備份根文件夾：HIS Tools
-   - 工具子文件夾：HIS Main / Bus ETA / Currency Exchange
-   - 版本子文件夾：v{版本號}（例如 v1.01）
-   - 完整路徑：HIS Tools/{工具名}/v{版本號}/
-        │
-        ▼
-完成 ✅
-`
-
-### J00 工作流程（JSON 生成）
-
-`
-用戶呼叫「執行 J00」
-        │
-        ▼
-1. 讀取 Parameters 確認模式：
-   - 巴士常用路線模式：讀取常用路線表 → 生成 favorites.json → 上傳 bus-eta-sync repo
-   - 工具列表模式：讀取 Register List（跳過 Main）→ 生成 tools.json → 上傳 his-tools repo
-        │
-        ▼
-2. 生成 JSON 文件
-        │
-        ▼
-3. 上傳到對應 GitHub Repo
-        │
-        ▼
-4. 回傳上傳結果
-        │
-        ▼
-完成 ✅
-`
-
-### Register List 欄位說明
-
-| 欄位 | 說明 |
-|------|------|
-| HIS Tools | 工具名稱 |
-| Related Job | 關聯嘅 JOB（連結到常數設定表） |
-| 本地 Onedrive Repository | 本地開發目錄路徑 |
-| GitHub Repository | GitHub Repo 連結 |
-| Deployed Page | GitHub Pages 部署連結 |
-| 描述 | 工具描述（顯示喺 Landing Page） |
-| 圖標 | 工具圖標（emoji，顯示喺 Landing Page） |
-| 狀態 | 已上線 / 即將推出 / 開發中 |
-
-### 備份路徑結構
-
-`
-HIS Tools/ (J4rkfFNROll0lKdZ6Brcwoqxn3c)
-├── HIS Main/          ← J01
-│   ├── v1.00/
-│   │   ├── index.html
-│   │   ├── citybus-logo.png
-│   │   └── README.md
-│   └── v1.01/
-│       ├── index.html
-│       ├── tools.json
-│       ├── citybus-logo.png
-│       └── README.md
-├── Bus ETA/           ← J02
-│   └── v1.xx/
-│       └── ...
-└── Currency Exchange/ ← J03
-    └── v1.00/
-        ├── index.html
-        └── README.md
-`
-
-### 版本控制規則
-
-- 格式：MAJOR.MINOR（例如 v1.00, v1.01）
-- 每次 J01/J02/J03 更新，版本號自動 +0.01
-- HTML 底部顯示：HIS Tools © YYYY.MAJOR.MINOR
-- README.md 嘅 Version Control 章節記錄每次改動
-
-### 觸發範例
-
-**更新 Landing Page：**
-> 用戶：「J01，幫我加個新工具卡片」
-> 
-> Agent：1. 讀取 Register List → 找到 Main 嘅本地路徑
-> 2. 喺 OneDrive 目錄修改 index.html
-> 3. 用戶本地測試
-> 4. 用戶說「OK」
-> 5. 上傳 GitHub + 更新 README（v1.01 → v1.02）
-> 6. 備份到 HIS Tools/HIS Main/v1.02/
-
-**更新工具列表：**
-> 用戶：「J00，更新 tools.json」
-> 
-> Agent：1. 讀取 Register List 所有記錄（跳過 Main）
-> 2. 生成 tools.json
-> 3. 上傳 his-tools repo
-> 4. 回傳結果
-
 ## 文件結構
 
 ### GitHub Repository
 
 ```
 his-tools/
-├── index.html              # Landing Page 主頁面（動態讀取 tools.json）
-├── tools.json              # 工具列表（由 Register List 生成，J00 負責更新）
+├── index.html              # Landing Page 主頁面
 ├── citybus-logo.png        # 城巴 Logo
-└── README.md               # 本文件（含 Version Control）
+└── README.md               # 本文件
 ```
 
 ### 本地 OneDrive 目錄
@@ -377,19 +158,17 @@ his-tools/
 ```
 D:\OneDrive\Harry Information System\豆包Agents Program Backup\Main\
 ├── index.html              # Landing Page 主頁面（本地開發版）
-├── tools.json              # 工具列表（由 Register List 生成）
-├── citybus-logo.png        # 城巴 Logo
-└── README.md               # 說明文件
+└── citybus-logo.png        # 城巴 Logo
 ```
 
 ### 飛書雲端備份
 
 ```
-HIS Main/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
+HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 ├── index.html
-├── tools.json
 ├── citybus-logo.png
-└── README.md
+├── README.md
+└── his-tools-backup-YYYYMMDD-HHMMSS.zip
 ```
 
 ---
@@ -410,7 +189,7 @@ A:
 2. 修改工具名稱、描述、圖標、連結
 3. 更新 `data-name` 同 `data-desc` 用於搜尋
 4. 本地測試
-5. 執行 J01 上傳到 GitHub（版本號自動 +0.01）
+5. 執行 J02M 上傳到 GitHub
 
 ### Q: 可以自訂天氣位置嗎？
 
@@ -427,10 +206,6 @@ A: `openCalendar()` 函數會檢測用戶設備：
 - **Android**: 優先嘗試 `googlecalendar://`，失敗則打開網頁版 Google Calendar
 - **桌面**: 打開網頁版 Google Calendar
 
-### Q: 版本號點樣更新？
-
-A: 每次執行 J01/J02 更新，版本號自動 +0.01。例如 v1.00 → v1.01 → v1.02。HTML 底部都會同步更新顯示。
-
 ### Q: 搜尋支援邊啲語言？
 
 A: 支援中英文搜尋。比對工具名稱（`data-name`）同描述（`data-desc`），大小寫不敏感。
@@ -446,7 +221,15 @@ A: 支援中英文搜尋。比對工具名稱（`data-name`）同描述（`data-
 
 ---
 
+## 更新記錄
+
+| 日期 | 版本 | 說明 |
+|------|------|------|
+| 2026-10-08 | v1.1 | Calendar 改用 Mobile Deeplink，iOS 用 calshow:// 直接打開系統日曆 App，Android 優先嘗試 googlecalendar:// |
+| 2026-10-08 | v1.0 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具 |
+
+---
+
 ## License
 
 MIT License
-
