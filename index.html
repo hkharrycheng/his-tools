@@ -563,7 +563,15 @@ const DEFAULT_TOOLS = [
     description: "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析",
     status: "已上線",
     tags: ["社交"]
-  }
+  },
+  {
+    name: "學生成績記錄",
+    icon: "📚",
+    url: "https://hkharrycheng.github.io/student-record/",
+    description: "帶密碼保護的學生成績記錄系統，追蹤Cici和Coco的練習、測驗及考試成績",
+    status: "已上線",
+    tags: ["學業"]
+  },
 ];
 
 // ===== 從 tools.json 載入工具列表 =====
@@ -634,7 +642,7 @@ function getTagIcon(tag) {
     '交通': '🚌',
     '購物': '🛒',
     '社交': '👥',
-    '其他': '📌'
+    '其他': '📌',\n    '學業': '📚'
   };
   return icons[tag] || '🏷️';
 }
