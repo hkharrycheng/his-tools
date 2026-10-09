@@ -123,7 +123,7 @@
 
   /* ===== Search Bar ===== */
   .search-container {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     position: relative;
   }
   .search-input {
@@ -168,6 +168,33 @@
     display: block;
   }
 
+  /* ===== Tag Filter ===== */
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .tag-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #30363d;
+    background: #161b22;
+    color: #8b949e;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .tag-btn.active {
+    background: #1f6feb;
+    border-color: #1f6feb;
+    color: white;
+  }
+  .tag-btn:active {
+    transform: scale(0.95);
+  }
+
   .section-title {
     font-size: 14px;
     font-weight: 600;
@@ -189,6 +216,24 @@
     font-size: 12px;
     color: #484f58;
     font-weight: 400;
+  }
+
+  /* ===== Tag Group ===== */
+  .tag-group {
+    margin-bottom: 24px;
+  }
+  .tag-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #58a6ff;
+    margin-bottom: 10px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tag-group-title .tag-icon {
+    font-size: 14px;
   }
 
   /* ===== Tool Cards ===== */
@@ -239,6 +284,7 @@
     flex-shrink: 0;
     overflow: hidden;
     background: white;
+    font-size: 28px;
   }
   .tool-icon img {
     width: 100%;
@@ -375,55 +421,16 @@
     <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
   </div>
 
-  <div class="section-title">
-    實用工具
-    <span class="count" id="toolCount">(4)</span>
+  <!-- Tag Filter -->
+  <div class="tag-filter" id="tagFilter">
+    <!-- 動態生成 Tag 按鈕 -->
   </div>
-  
-  <div class="tool-grid" id="toolGrid">
-    
-    <!-- Tool 1: 巴士到站查詢 -->
-    <div class="tool-card" data-name="巴士到站查詢" data-desc="九巴城巴新巴小巴實時到站時間常用路線" onclick="window.open('https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html', '_blank')">
-      <div class="tool-icon">
-        <img src="citybus-logo.png" alt="城巴 Logo">
-      </div>
-      <div class="tool-info">
-        <div class="tool-name">巴士到站查詢</div>
-        <div class="tool-desc">九巴、城巴/新巴、小巴實時到站時間，常用路線一覽</div>
-        <span class="tool-badge">已上線</span>
-      </div>
-    </div>
 
-    <!-- Tool 2: 外幣兌換率 -->
-    <div class="tool-card" data-name="外幣兌換率" data-desc="實時外幣兌換率查詢夾錢計算" onclick="window.open('https://hkharrycheng.github.io/currency-exchange/', '_blank')">
-      <div class="tool-icon">💱</div>
-      <div class="tool-info">
-        <div class="tool-name">外幣兌換率</div>
-        <div class="tool-desc">實時外幣兌換率查詢 + 夾錢計算</div>
-        <span class="tool-badge">已上線</span>
-      </div>
+  <!-- Tools Container (動態生成) -->
+  <div id="toolsContainer">
+    <div class="section-title">
+      載入中...
     </div>
-
-    <!-- Tool 3: 點餐清單工具 -->
-    <div class="tool-card" data-name="點餐清單工具" data-desc="餐廳用餐記錄工具上菜checklist" onclick="window.open('https://hkharrycheng.github.io/food-arrival/', '_blank')">
-      <div class="tool-icon">🍽️</div>
-      <div class="tool-info">
-        <div class="tool-name">點餐清單工具</div>
-        <div class="tool-desc">餐廳用餐記錄工具，上菜 Checklist</div>
-        <span class="tool-badge">已上線</span>
-      </div>
-    </div>
-
-    <!-- Tool 4: 貨品監控助手 -->
-    <div class="tool-card" data-name="貨品監控助手" data-desc="監控心儀貨品價格變化價格跌價分析" onclick="window.open('https://hkharrycheng.github.io/purchase-target/', '_blank')">
-      <div class="tool-icon">📦</div>
-      <div class="tool-info">
-        <div class="tool-name">貨品監控助手</div>
-        <div class="tool-desc">監控心儀貨品價格變化，行/水貨跌價分析</div>
-        <span class="tool-badge">已上線</span>
-      </div>
-    </div>
-
   </div>
 
   <!-- No Results -->
@@ -436,11 +443,16 @@
 
 <!-- ===== Footer ===== -->
 <div class="footer">
-  <p>HIS Tools © 2026</p>
+  <p>HIS Tools © 2026.1.01</p>
   <p>Powered by Harry Cheng</p>
 </div>
 
 <script>
+// ===== 全局變數 =====
+let allTools = [];
+let activeTags = new Set();
+let allTags = [];
+
 // ===== 打開 Calendar App (Mobile Deeplink) =====
 function openCalendar() {
   const ua = navigator.userAgent.toLowerCase();
@@ -448,10 +460,8 @@ function openCalendar() {
   const isAndroid = /android/.test(ua);
   
   if (isIOS) {
-    // iOS: 打開系統日曆 App
     window.location.href = 'calshow://';
   } else if (isAndroid) {
-    // Android: 優先嘗試 Google Calendar App，失敗則打開網頁版
     try {
       window.location.href = 'googlecalendar://';
       setTimeout(() => {
@@ -461,7 +471,6 @@ function openCalendar() {
       window.location.href = 'https://calendar.google.com/calendar/u/0/r?pli=1';
     }
   } else {
-    // 桌面: 打開網頁版 Google Calendar
     window.open('https://calendar.google.com/calendar/u/0/r?pli=1', '_blank');
   }
 }
@@ -481,7 +490,7 @@ function updateDate() {
 updateDate();
 setInterval(updateDate, 60000);
 
-// ===== 天氣（用 Open-Meteo 免費 API，香港） =====
+// ===== 天氣 =====
 async function loadWeather() {
   try {
     const lat = 22.3193;
@@ -521,35 +530,280 @@ function getWeatherInfo(code) {
 
 loadWeather();
 
+// ===== 內嵌預設數據（用於本地 file:// 測試） =====
+const DEFAULT_TOOLS = [
+  {
+    name: "巴士到站時間",
+    icon: "🚌",
+    url: "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
+    description: "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
+    status: "已上線",
+    tags: ["交通"]
+  },
+  {
+    name: "外幣夾錢",
+    icon: "💱",
+    url: "https://hkharrycheng.github.io/currency-exchange/",
+    description: "實時外幣兌換率查詢 + 夾錢計算",
+    status: "已上線",
+    tags: ["購物"]
+  },
+  {
+    name: "點餐清單工具",
+    icon: "🍽️",
+    url: "https://hkharrycheng.github.io/food-arrival/",
+    description: "餐廳用餐記錄工具",
+    status: "已上線",
+    tags: ["社交"]
+  },
+  {
+    name: "貨品監控助手",
+    icon: "📦",
+    url: "https://hkharrycheng.github.io/purchase-target/",
+    description: "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析",
+    status: "已上線",
+    tags: ["社交"]
+  }
+];
+
+// ===== 從 tools.json 載入工具列表 =====
+async function loadTools() {
+  // 如果是 file:// 協議，直接用內嵌數據
+  if (window.location.protocol === 'file:') {
+    allTools = DEFAULT_TOOLS;
+    initTagsAndRender();
+    return;
+  }
+  
+  try {
+    const res = await fetch(`tools.json?v=${Date.now()}`);
+    allTools = await res.json();
+    initTagsAndRender();
+  } catch (err) {
+    console.error('載入tools.json失敗，用內嵌數據:', err);
+    allTools = DEFAULT_TOOLS;
+    initTagsAndRender();
+  }
+}
+
+function initTagsAndRender() {
+  // 提取所有Tags
+  const tagSet = new Set();
+  allTools.forEach(tool => {
+    if (tool.tags && tool.tags.length > 0) {
+      tool.tags.forEach(tag => tagSet.add(tag));
+    } else {
+      tagSet.add('其他');
+    }
+  });
+  allTags = Array.from(tagSet);
+  
+  // 預設所有Tag都顯示
+  allTags.forEach(tag => activeTags.add(tag));
+  
+  renderTagFilter();
+  renderTools();
+}
+
+// ===== 渲染 Tag 篩選按鈕 =====
+function renderTagFilter() {
+  const container = document.getElementById('tagFilter');
+  container.innerHTML = '';
+  
+  // 全部按鈕
+  const allBtn = document.createElement('button');
+  allBtn.className = 'tag-btn active';
+  allBtn.textContent = '全部';
+  allBtn.onclick = () => toggleAllTags();
+  container.appendChild(allBtn);
+  
+  // 各個Tag按鈕
+  allTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'tag-btn active';
+    btn.textContent = getTagIcon(tag) + ' ' + tag;
+    btn.dataset.tag = tag;
+    btn.onclick = () => toggleTag(tag);
+    container.appendChild(btn);
+  });
+}
+
+// ===== Tag 圖標 =====
+function getTagIcon(tag) {
+  const icons = {
+    '交通': '🚌',
+    '購物': '🛒',
+    '社交': '👥',
+    '其他': '📌'
+  };
+  return icons[tag] || '🏷️';
+}
+
+// ===== Toggle 單個 Tag =====
+function toggleTag(tag) {
+  if (activeTags.has(tag)) {
+    activeTags.delete(tag);
+  } else {
+    activeTags.add(tag);
+  }
+  updateTagButtons();
+  renderTools();
+}
+
+// ===== Toggle 全部 Tag =====
+function toggleAllTags() {
+  if (activeTags.size === allTags.length) {
+    activeTags.clear();
+  } else {
+    allTags.forEach(tag => activeTags.add(tag));
+  }
+  updateTagButtons();
+  renderTools();
+}
+
+// ===== 更新 Tag 按鈕狀態 =====
+function updateTagButtons() {
+  const buttons = document.querySelectorAll('.tag-btn');
+  buttons.forEach(btn => {
+    if (btn.textContent === '全部') {
+      btn.classList.toggle('active', activeTags.size === allTags.length);
+    } else {
+      const tag = btn.dataset.tag;
+      btn.classList.toggle('active', activeTags.has(tag));
+    }
+  });
+}
+
+// ===== 渲染工具列表（按Tag分組） =====
+function renderTools() {
+  const container = document.getElementById('toolsContainer');
+  const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+  
+  container.innerHTML = '';
+  
+  // 按Tag分組
+  const groups = {};
+  allTools.forEach(tool => {
+    // 跳過Main（因為係自己本身）
+    if (tool.name === 'Main') return;
+    
+    // 檢查Tag是否顯示
+    const toolTags = tool.tags && tool.tags.length > 0 ? tool.tags : ['其他'];
+    const tagVisible = toolTags.some(tag => activeTags.has(tag));
+    if (!tagVisible) return;
+    
+    // 檢查搜尋
+    if (searchQuery) {
+      const name = (tool.name || '').toLowerCase();
+      const desc = (tool.description || '').toLowerCase();
+      if (!name.includes(searchQuery) && !desc.includes(searchQuery)) return;
+    }
+    
+    // 分組
+    toolTags.forEach(tag => {
+      if (!groups[tag]) groups[tag] = [];
+      // 避免重複加入
+      if (!groups[tag].find(t => t.name === tool.name)) {
+        groups[tag].push(tool);
+      }
+    });
+  });
+  
+  // 渲染每個分組
+  let totalVisible = 0;
+  Object.keys(groups).sort().forEach(tag => {
+    const tools = groups[tag];
+    if (tools.length === 0) return;
+    
+    totalVisible += tools.length;
+    
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'tag-group';
+    
+    // 分組標題
+    const title = document.createElement('div');
+    title.className = 'tag-group-title';
+    title.innerHTML = `<span class="tag-icon">${getTagIcon(tag)}</span> ${tag} <span style="color:#484f58; font-weight:400;">(${tools.length})</span>`;
+    groupDiv.appendChild(title);
+    
+    // 工具卡片網格
+    const grid = document.createElement('div');
+    grid.className = 'tool-grid';
+    
+    tools.forEach(tool => {
+      const card = createToolCard(tool);
+      grid.appendChild(card);
+    });
+    
+    groupDiv.appendChild(grid);
+    container.appendChild(groupDiv);
+  });
+  
+  // 顯示/隱藏 no results
+  const noResults = document.getElementById('noResults');
+  noResults.classList.toggle('visible', totalVisible === 0);
+}
+
+// ===== 建立工具卡片 =====
+function createToolCard(tool) {
+  const card = document.createElement('div');
+  card.className = 'tool-card';
+  
+  // 工具名稱嚴格跟 Register List 的 HIS Tools 欄
+  const toolName = tool.name || '未知工具';
+  const toolDesc = tool.description || '';
+  const toolUrl = tool.url || '#';
+  const toolIcon = tool.icon || '🔧';
+  const toolStatus = tool.status || '已上線';
+  
+  // 檢查是否有自訂圖標圖片
+  let iconHtml = '';
+  if (tool.icon && tool.icon.startsWith('http')) {
+    iconHtml = `<img src="${tool.icon}" alt="${toolName}">`;
+  } else if (tool.icon === '🚌') {
+    // 巴士用城巴logo
+    iconHtml = `<img src="citybus-logo.png" alt="${toolName}">`;
+  } else {
+    iconHtml = toolIcon;
+  }
+  
+  card.innerHTML = `
+    <div class="tool-icon">${iconHtml}</div>
+    <div class="tool-info">
+      <div class="tool-name">${toolName}</div>
+      <div class="tool-desc">${toolDesc}</div>
+      <span class="tool-badge">${toolStatus}</span>
+    </div>
+  `;
+  
+  if (toolStatus === '即將推出' || toolStatus === '開發中') {
+    card.classList.add('coming-soon');
+    card.querySelector('.tool-badge').className = 'coming-soon-badge';
+  } else {
+    card.onclick = () => window.open(toolUrl, '_blank');
+  }
+  
+  return card;
+}
+
 // ===== 搜尋功能 =====
 const searchInput = document.getElementById('searchInput');
 const searchClear = document.getElementById('searchClear');
-const toolCards = document.querySelectorAll('.tool-card');
-const noResults = document.getElementById('noResults');
-const toolCount = document.getElementById('toolCount');
 
 searchInput.addEventListener('input', function() {
-  const query = this.value.trim().toLowerCase();
-  let visibleCount = 0;
-  
-  toolCards.forEach(card => {
-    const name = card.dataset.name.toLowerCase();
-    const desc = card.dataset.desc.toLowerCase();
-    const match = name.includes(query) || desc.includes(query);
-    card.classList.toggle('hidden', !match);
-    if (match) visibleCount++;
-  });
-  
   searchClear.classList.toggle('visible', this.value.length > 0);
-  noResults.classList.toggle('visible', visibleCount === 0);
-  toolCount.textContent = `(${visibleCount})`;
+  renderTools();
 });
 
 function clearSearch() {
   searchInput.value = '';
-  searchInput.dispatchEvent(new Event('input'));
+  searchClear.classList.remove('visible');
+  renderTools();
   searchInput.focus();
 }
+
+// ===== 初始化 =====
+loadTools();
 </script>
 
 </body>
