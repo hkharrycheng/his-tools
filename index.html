@@ -600,8 +600,9 @@ function initTagsAndRender() {
   // 提取所有Tags
   const tagSet = new Set();
   allTools.forEach(tool => {
-    if (tool.tags && tool.tags.length > 0) {
-      tool.tags.forEach(tag => tagSet.add(tag));
+    const tagsArr = Array.isArray(tool.tags) ? tool.tags : (tool.tags ? [tool.tags] : []);
+    if (tagsArr.length > 0) {
+      tagsArr.forEach(tag => tagSet.add(tag));
     } else {
       tagSet.add('其他');
     }
@@ -699,7 +700,7 @@ function renderTools() {
     if (tool.name === 'Main') return;
     
     // 檢查Tag是否顯示
-    const toolTags = tool.tags && tool.tags.length > 0 ? tool.tags : ['其他'];
+    const toolTags = Array.isArray(tool.tags) ? (tool.tags.length > 0 ? tool.tags : ['其他']) : (tool.tags ? [tool.tags] : ['其他']);
     const tagVisible = toolTags.some(tag => activeTags.has(tag));
     if (!tagVisible) return;
     
