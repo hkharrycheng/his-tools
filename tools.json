@@ -1,81 +1,79 @@
 [
     {
         "name":  "Main",
-        "tags":  {
+        "tags":  [
 
-                 },
+                 ],
         "github":  "[GitHub - hkharrycheng/his-tools: HIS Tools - Harry\u0027s Intelligent Services Landing Page · GitHub](https://github.com/hkharrycheng/his-tools)",
         "icon":  "🏠",
         "description":  "HIS Tools 主頁，所有工具入口",
         "deployedPage":  "[HIS Tools](https://hkharrycheng.github.io/his-tools/)",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     },
     {
         "name":  "巴士到站時間",
-        "tags":  "交通",
+        "tags":  [
+                     "交通"
+                 ],
         "github":  "[GitHub - hkharrycheng/bus-eta-sync · GitHub](https://github.com/hkharrycheng/bus-eta-sync)",
         "icon":  "🚌",
         "description":  "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
         "deployedPage":  "[香港巴士到站查詢](https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html)",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     },
     {
         "name":  "外幣夾錢",
-        "tags":  "社交",
+        "tags":  [
+                     "社交"
+                 ],
         "github":  "[GitHub - hkharrycheng/currency-exchange](https://github.com/hkharrycheng/currency-exchange)",
         "icon":  "💱",
         "description":  "實時外幣兌換率查詢 + 夾錢計算",
         "deployedPage":  "[外幣兌換率](https://hkharrycheng.github.io/currency-exchange/)",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     },
     {
         "name":  "點餐清單工具",
-        "tags":  "社交",
+        "tags":  [
+                     "社交"
+                 ],
         "github":  "https://github.com/hkharrycheng/food-arrival",
         "icon":  "🍽️",
         "description":  "餐廳用餐記錄工具",
         "deployedPage":  "https://hkharrycheng.github.io/food-arrival/",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     },
     {
         "name":  "貨品監控助手",
-        "tags":  "購物",
+        "tags":  [
+                     "購物"
+                 ],
         "github":  "[GitHub - hkharrycheng/purchase-target](https://github.com/hkharrycheng/purchase-target)",
         "icon":  "📦",
         "description":  "監控心儀貨品價格變化, 行/水貨跌價分析",
         "deployedPage":  "[貨品監控助手](https://hkharrycheng.github.io/purchase-target/)",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     },
     {
         "name":  "學生成績記錄",
-        "tags":  "學業",
+        "tags":  [
+                     "學業"
+                 ],
         "github":  "[GitHub - hkharrycheng/student-record](https://github.com/hkharrycheng/student-record)",
         "icon":  "📚",
         "description":  "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
         "deployedPage":  "[學生成績記錄](https://hkharrycheng.github.io/student-record/)",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     },
     {
         "name":  "Wild Rift Tools",
-        "tags":  "遊戲",
+        "tags":  [
+                     "遊戲"
+                 ],
         "github":  "https://github.com/hkharrycheng/wild-rift-tools",
         "icon":  "🎮",
         "description":  "Wild Rift Champion Pool、戰績記錄同Battle Assistant對戰分析",
         "deployedPage":  "https://hkharrycheng.github.io/wild-rift-tools/",
-        "status":  [
-                       "已上線"
-                   ]
+        "status":  "已上線"
     }
 ]
