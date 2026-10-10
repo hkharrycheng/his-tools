@@ -764,7 +764,10 @@ function createToolCard(tool) {
   // 工具名稱嚴格跟 Register List 的 HIS Tools 欄
   const toolName = tool.name || '未知工具';
   const toolDesc = tool.description || '';
-  const toolUrl = tool.url || '#';
+  // 從deployedPage提取純URL（支援Markdown格式 [名稱](URL)）
+let toolUrl = tool.deployedPage || tool.url || '#';
+const mdMatch = toolUrl.match(/\((https?:\/\/[^)]+)\)/);
+if (mdMatch) toolUrl = mdMatch[1];
   const toolIcon = tool.icon || '🔧';
   const toolStatus = tool.status || '已上線';
   
