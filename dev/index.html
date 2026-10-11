@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>HIS Tools</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Microsoft YaHei', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== Merged Header (Title + Date + Weather) ===== */
+  .header {
+    background: linear-gradient(135deg, #1f6feb 0%, #388bfd 50%, #58a6ff 100%);
+    padding: 16px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: visible;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+  }
+  .header-icon {
+    font-size: 28px;
+  }
+  .header-title {
+    display: flex;
+    flex-direction: column;
+  }
+  .header-title h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  .header-title p {
+    font-size: 10px;
+    opacity: 0.85;
+    font-weight: 300;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+  }
+  .header-date {
+    text-align: right;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .header-date:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  .header-date .date-main {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .header-date .date-sub {
+    font-size: 10px;
+    opacity: 0.85;
+  }
+  .header-weather {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .header-weather:hover {
+    background: rgba(255,255,255,0.25);
+  }
+  .weather-icon {
+    font-size: 20px;
+  }
+  .weather-temp {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .weather-loading {
+    font-size: 10px;
+    opacity: 0.8;
+  }
+
+  /* ===== Main Content ===== */
+  .container {
+    padding: 18px 16px 40px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ===== Search Bar ===== */
+  .search-container {
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .search-input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    color: #e6edf3;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus {
+    border-color: #388bfd;
+  }
+  .search-input::placeholder {
+    color: #484f58;
+  }
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0.6;
+  }
+  .search-clear {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #8b949e;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+    padding: 4px;
+  }
+  .search-clear.visible {
+    display: block;
+  }
+
+  /* ===== Tag Filter ===== */
+  .tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .tag-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #30363d;
+    background: #161b22;
+    color: #8b949e;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .tag-btn.active {
+    background: #1f6feb;
+    border-color: #1f6feb;
+    color: white;
+  }
+  .tag-btn:active {
+    transform: scale(0.95);
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8b949e;
+    margin-bottom: 12px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: #388bfd;
+    border-radius: 2px;
+  }
+  .section-title .count {
+    font-size: 12px;
+    color: #484f58;
+    font-weight: 400;
+  }
+
+  /* ===== Tag Group ===== */
+  .tag-group {
+    margin-bottom: 24px;
+  }
+  .tag-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #58a6ff;
+    margin-bottom: 10px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tag-group-title .tag-icon {
+    font-size: 14px;
+  }
+
+  /* ===== Tool Cards ===== */
+  .tool-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tool-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: visible;
+  }
+  .tool-card:active {
+    transform: scale(0.98);
+    background: #1c2128;
+  }
+  .tool-card::after {
+    content: '›';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #484f58;
+    font-weight: 300;
+  }
+  .tool-card.hidden {
+    display: none;
+  }
+
+  .tool-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: visible;
+    background: white;
+    font-size: 28px;
+  }
+  .tool-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .tool-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .tool-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: #e6edf3;
+  }
+  .tool-desc {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .tool-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: #1f6feb;
+    color: white;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  /* ===== Coming Soon Cards ===== */
+  .tool-card.coming-soon {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .tool-card.coming-soon:active {
+    transform: none;
+  }
+  .tool-icon.placeholder {
+    background: #21262d;
+    border: 2px dashed #30363d;
+    font-size: 20px;
+  }
+  .coming-soon-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    background: #30363d;
+    color: #8b949e;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+
+  /* ===== Tool Links ===== */
+  .tool-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .base-link {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(56, 139, 253, 0.15);
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .base-link:hover {
+    background: rgba(56, 139, 253, 0.3);
+  }
+  .base-link-web {
+    background: rgba(56, 139, 253, 0.15);
+    color: #58a6ff;
+  }
+  .base-link-android {
+    background: rgba(63, 185, 80, 0.15);
+    color: #3fb950;
+  }
+  .base-link-android:hover {
+    background: rgba(63, 185, 80, 0.3);
+  }
+
+  /* ===== No Results ===== */
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #484f58;
+    display: none;
+  }
+  .no-results.visible {
+    display: block;
+  }
+  .no-results .icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  .no-results p {
+    font-size: 14px;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #484f58;
+    font-size: 11px;
+    border-top: 1px solid #21262d;
+    margin-top: 16px;
+  }
+  .footer p { margin-bottom: 3px; }
+
+  /* ===== Safe Area ===== */
+  @supports (padding: max(0px)) {
+    .header { padding-top: max(16px, env(safe-area-inset-top)); }
+    .container { padding-bottom: max(40px, env(safe-area-inset-bottom)); }
+  }
+
+  /* ===== Desktop ===== */
+  @media (min-width: 768px) {
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .header { padding: 20px 24px; }
+    .header-title h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Merged Header ===== -->
+<div class="header">
+  <div class="header-left">
+    <span class="header-icon">🛠️</span>
+    <div class="header-title">
+      <h1>HIS Tools</h1>
+      <p>Harry's Intelligent Services</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a class="header-date" href="javascript:void(0)" onclick="openCalendar()">
+      <div class="date-main" id="dateMain">載入中...</div>
+      <div class="date-sub" id="dateSub"></div>
+    </a>
+    <a class="header-weather" id="weatherBox" href="https://www.hko.gov.hk/" target="_blank">
+      <span class="weather-loading">載入中</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+  
+  <!-- Search Bar -->
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="搜尋工具..." autocomplete="off">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+  </div>
+
+  <!-- Tag Filter -->
+  <div class="tag-filter" id="tagFilter">
+    <!-- 動態生成 Tag 按鈕 -->
+  </div>
+
+  <!-- Tools Container (動態生成) -->
+  <div id="toolsContainer">
+    <div class="section-title">
+      載入中...
+    </div>
+  </div>
+
+  <!-- No Results -->
+  <div class="no-results" id="noResults">
+    <div class="icon">🔍</div>
+    <p>搵唔到相關工具</p>
+  </div>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <p>HIS Tools © 2026.1.02</p>
+  <p>Powered by Harry Cheng</p>
+</div>
+
+<script>
+// ===== 全局變數 =====
+let allTools = [];
+let activeTags = new Set();
+let allTags = [];
+
+// ===== 打開 Calendar App (Mobile Deeplink) =====
+function openCalendar() {
+  const ua = navigator.userAgent.toLowerCase();
+  const isIOS = /iphone|ipad|ipod/.test(ua);
+  const isAndroid = /android/.test(ua);
+  
+  if (isIOS) {
+    window.location.href = 'calshow://';
+  } else if (isAndroid) {
+    try {
+      window.location.href = 'googlecalendar://';
+      setTimeout(() => {
+        window.location.href = 'https://calendar.google.com/calendar/u/0/r?pli=1';
+      }, 500);
+    } catch (e) {
+      window.location.href = 'https://calendar.google.com/calendar/u/0/r?pli=1';
+    }
+  } else {
+    window.open('https://calendar.google.com/calendar/u/0/r?pli=1', '_blank');
+  }
+}
+
+// ===== 日期顯示 =====
+function updateDate() {
+  const now = new Date();
+  const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const weekday = days[now.getDay()];
+  
+  document.getElementById('dateMain').textContent = `${month}/${day}`;
+  document.getElementById('dateSub').textContent = weekday;
+}
+updateDate();
+setInterval(updateDate, 60000);
+
+// ===== 天氣 =====
+async function loadWeather() {
+  try {
+    const lat = 22.3193;
+    const lon = 114.1694;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=Asia/Hong_Kong`;
+    
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    if (data.current) {
+      const temp = Math.round(data.current.temperature_2m);
+      const weatherCode = data.current.weather_code;
+      const { icon } = getWeatherInfo(weatherCode);
+      
+      document.getElementById('weatherBox').innerHTML = `
+        <span class="weather-icon">${icon}</span>
+        <span class="weather-temp">${temp}°</span>
+      `;
+    }
+  } catch (err) {
+    document.getElementById('weatherBox').innerHTML = '<span class="weather-loading">--</span>';
+  }
+}
+
+function getWeatherInfo(code) {
+  const weatherMap = {
+    0: { icon: '☀️' }, 1: { icon: '🌤️' }, 2: { icon: '⛅' }, 3: { icon: '☁️' },
+    45: { icon: '🌫️' }, 48: { icon: '🌫️' },
+    51: { icon: '🌦️' }, 53: { icon: '🌦️' }, 55: { icon: '🌧️' },
+    61: { icon: '🌦️' }, 63: { icon: '🌧️' }, 65: { icon: '🌧️' },
+    71: { icon: '🌨️' }, 73: { icon: '🌨️' }, 75: { icon: '❄️' },
+    80: { icon: '🌦️' }, 81: { icon: '🌧️' }, 82: { icon: '⛈️' },
+    95: { icon: '⛈️' }, 96: { icon: '⛈️' }, 99: { icon: '⛈️' }
+  };
+  return weatherMap[code] || { icon: '🌡️' };
+}
+
+loadWeather();
+
+// ===== 內嵌預設數據（用於本地 file:// 測試） =====
+const DEFAULT_TOOLS = [
+  {
+    name: "巴士到站時間",
+    icon: "🚌",
+    url: "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
+    description: "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
+    status: "已上線",
+    tags: ["交通"]
+  },
+  {
+    name: "外幣夾錢",
+    icon: "💱",
+    url: "https://hkharrycheng.github.io/currency-exchange/",
+    description: "實時外幣兌換率查詢 + 夾錢計算",
+    status: "已上線",
+    tags: ["社交"]
+  },
+  {
+    name: "點餐清單工具",
+    icon: "🍽️",
+    url: "https://hkharrycheng.github.io/food-arrival/",
+    description: "餐廳用餐記錄工具",
+    status: "已上線",
+    tags: ["社交"]
+  },
+  {
+    name: "貨品監控助手",
+    icon: "📦",
+    url: "https://hkharrycheng.github.io/purchase-target/",
+    description: "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析",
+    status: "已上線",
+    tags: ["社交"]
+  },
+  {
+    name: "學生成績記錄",
+    icon: "📚",
+    url: "https://hkharrycheng.github.io/student-record/",
+    description: "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
+    status: "已上線",
+    tags: ["學業"]
+  },
+];
+
+// ===== 從 tools.json 載入工具列表 =====
+async function loadTools() {
+  // 如果是 file:// 協議，直接用內嵌數據
+  if (window.location.protocol === 'file:') {
+    allTools = DEFAULT_TOOLS;
+    initTagsAndRender();
+    return;
+  }
+  
+  try {
+    const res = await fetch(`tools.json?v=${Date.now()}`);
+    allTools = await res.json();
+    initTagsAndRender();
+  } catch (err) {
+    console.error('載入tools.json失敗，用內嵌數據:', err);
+    allTools = DEFAULT_TOOLS;
+    initTagsAndRender();
+  }
+}
+
+function initTagsAndRender() {
+  // 提取所有Tags（嚴格跟Register List，冇Tag嘅工具唔會顯示）
+  const tagSet = new Set();
+  allTools.forEach(tool => {
+    const tagsArr = Array.isArray(tool.tags) ? tool.tags : (tool.tags ? [tool.tags] : []);
+    tagsArr.forEach(tag => {
+      if (tag) tagSet.add(tag);
+    });
+  });
+  allTags = Array.from(tagSet);
+  
+  // 預設所有Tag都顯示
+  allTags.forEach(tag => activeTags.add(tag));
+  
+  renderTagFilter();
+  renderTools();
+}
+
+// ===== 渲染 Tag 篩選按鈕 =====
+function renderTagFilter() {
+  const container = document.getElementById('tagFilter');
+  container.innerHTML = '';
+  
+  // 全部按鈕
+  const allBtn = document.createElement('button');
+  allBtn.className = 'tag-btn active';
+  allBtn.textContent = '全部';
+  allBtn.onclick = () => toggleAllTags();
+  container.appendChild(allBtn);
+  
+  // 各個Tag按鈕
+  allTags.forEach(tag => {
+    const btn = document.createElement('button');
+    btn.className = 'tag-btn active';
+    btn.textContent = getTagIcon(tag) + ' ' + tag;
+    btn.dataset.tag = tag;
+    btn.onclick = () => toggleTag(tag);
+    container.appendChild(btn);
+  });
+}
+
+// ===== Tag 圖標 =====
+function getTagIcon(tag) {
+  const icons = {
+    '交通': '🚌',
+    '購物': '🛒',
+    '社交': '👥',
+    '學業': '📚',
+    '遊戲': '🎮'
+  };
+  return icons[tag] || '🏷️';
+}
+
+// ===== Toggle 單個 Tag =====
+function toggleTag(tag) {
+  if (activeTags.has(tag)) {
+    activeTags.delete(tag);
+  } else {
+    activeTags.add(tag);
+  }
+  updateTagButtons();
+  renderTools();
+}
+
+// ===== Toggle 全部 Tag =====
+function toggleAllTags() {
+  if (activeTags.size === allTags.length) {
+    activeTags.clear();
+  } else {
+    allTags.forEach(tag => activeTags.add(tag));
+  }
+  updateTagButtons();
+  renderTools();
+}
+
+// ===== 更新 Tag 按鈕狀態 =====
+function updateTagButtons() {
+  const buttons = document.querySelectorAll('.tag-btn');
+  buttons.forEach(btn => {
+    if (btn.textContent === '全部') {
+      btn.classList.toggle('active', activeTags.size === allTags.length);
+    } else {
+      const tag = btn.dataset.tag;
+      btn.classList.toggle('active', activeTags.has(tag));
+    }
+  });
+}
+
+// ===== 渲染工具列表（按Tag分組） =====
+function renderTools() {
+  const container = document.getElementById('toolsContainer');
+  const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+  
+  container.innerHTML = '';
+  
+  // 按Tag分組
+  const groups = {};
+  allTools.forEach(tool => {
+    // 跳過Main（因為係自己本身）
+    if (tool.name === 'Main') return;
+    
+    // 檢查Tag是否顯示（嚴格跟Register List，冇Tag嘅工具唔顯示）
+    const toolTags = Array.isArray(tool.tags) ? tool.tags.filter(t => t) : (tool.tags ? [tool.tags] : []);
+    if (toolTags.length === 0) return;
+    const tagVisible = toolTags.some(tag => activeTags.has(tag));
+    if (!tagVisible) return;
+    
+    // 檢查搜尋
+    if (searchQuery) {
+      const name = (tool.name || '').toLowerCase();
+      const desc = (tool.description || '').toLowerCase();
+      if (!name.includes(searchQuery) && !desc.includes(searchQuery)) return;
+    }
+    
+    // 分組
+    toolTags.forEach(tag => {
+      if (!groups[tag]) groups[tag] = [];
+      // 避免重複加入
+      if (!groups[tag].find(t => t.name === tool.name)) {
+        groups[tag].push(tool);
+      }
+    });
+  });
+  
+  // 渲染每個分組
+  let totalVisible = 0;
+  Object.keys(groups).sort().forEach(tag => {
+    const tools = groups[tag];
+    if (tools.length === 0) return;
+    
+    totalVisible += tools.length;
+    
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'tag-group';
+    
+    // 分組標題
+    const title = document.createElement('div');
+    title.className = 'tag-group-title';
+    title.innerHTML = `<span class="tag-icon">${getTagIcon(tag)}</span> ${tag} <span style="color:#484f58; font-weight:400;">(${tools.length})</span>`;
+    groupDiv.appendChild(title);
+    
+    // 工具卡片網格
+    const grid = document.createElement('div');
+    grid.className = 'tool-grid';
+    
+    tools.forEach(tool => {
+      const card = createToolCard(tool);
+      grid.appendChild(card);
+    });
+    
+    groupDiv.appendChild(grid);
+    container.appendChild(groupDiv);
+  });
+  
+  // 顯示/隱藏 no results
+  const noResults = document.getElementById('noResults');
+  noResults.classList.toggle('visible', totalVisible === 0);
+}
+
+// ===== 建立工具卡片 =====
+function createToolCard(tool) {
+  const card = document.createElement('div');
+  card.className = 'tool-card';
+  
+  // 工具名稱嚴格跟 Register List 的 HIS Tools 欄
+  const toolName = tool.name || '未知工具';
+  const toolDesc = tool.description || '';
+  // 從deployedPage提取純URL（支援Markdown格式 [名稱](URL)）
+let toolUrl = tool.deployedPage || tool.url || '#';
+const mdMatch = toolUrl.match(/\((https?:\/\/[^)]+)\)/);
+if (mdMatch) toolUrl = mdMatch[1];
+  const toolIcon = tool.icon || '🔧';
+  const toolStatus = tool.status || '已上線';
+  const baseUrl = tool.baseUrl || '';
+  
+  // 多維表格鏈接：桌面用網頁，Android用intent deeplink
+  function extractBaseToken(url) {
+    if (!url) return '';
+    const match = url.match(/\/base\/([A-Za-z0-9]+)/);
+    return match ? match[1] : '';
+  }
+  const baseToken = extractBaseToken(baseUrl);
+  
+  // 桌面版：網頁鏈接（瀏覽器打開）
+  const baseWebUrl = baseToken ? `https://feishu.doubao.com/base/${baseToken}` : baseUrl;
+  // Android版：intent格式deeplink（直接調用飛書APP）
+  const baseAndroidUrl = baseToken ? `intent://base/detail?app_token=${baseToken}#Intent;scheme=lark;package=com.ss.android.lark;end` : '';
+  
+  // 多維表格鏈接（兩個按鈕：桌面+Android）
+  let baseLinkHtml = '';
+  if (baseToken) {
+    baseLinkHtml = `
+      <a href="${baseWebUrl}" target="_blank" class="base-link base-link-web" onclick="event.stopPropagation()" title="桌面瀏覽器打開">🖥️ 桌面</a>
+      <a href="${baseAndroidUrl}" class="base-link base-link-android" onclick="event.stopPropagation()" title="Android飛書APP打開">📱 APP</a>
+    `;
+  }
+  
+  // 檢查是否有自訂圖標圖片
+  let iconHtml = '';
+  if (tool.icon && tool.icon.startsWith('http')) {
+    iconHtml = `<img src="${tool.icon}" alt="${toolName}">`;
+  } else if (tool.icon === '🚌') {
+    // 巴士用城巴logo
+    iconHtml = `<img src="citybus-logo.png" alt="${toolName}">`;
+  } else {
+    iconHtml = toolIcon;
+  }
+  
+  card.innerHTML = `
+    <div class="tool-icon">${iconHtml}</div>
+    <div class="tool-info">
+      <div class="tool-name">${toolName}</div>
+      <div class="tool-desc">${toolDesc}</div>
+      <div class="tool-links">
+        <span class="tool-badge">${toolStatus}</span>
+        ${baseLinkHtml}
+      </div>
+    </div>
+  `;
+  
+  if (toolStatus === '即將推出' || toolStatus === '開發中') {
+    card.classList.add('coming-soon');
+    card.querySelector('.tool-badge').className = 'coming-soon-badge';
+  } else {
+    card.onclick = () => window.open(toolUrl, '_blank');
+  }
+  
+  return card;
+}
+
+// ===== 搜尋功能 =====
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', function() {
+  searchClear.classList.toggle('visible', this.value.length > 0);
+  renderTools();
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  renderTools();
+  searchInput.focus();
+}
+
+// ===== 初始化 =====
+loadTools();
+</script>
+
+</body>
+</html>
