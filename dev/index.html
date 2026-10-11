@@ -366,15 +366,11 @@
   .base-link:hover {
     background: rgba(56, 139, 253, 0.3);
   }
-  .base-link-web {
-    background: rgba(56, 139, 253, 0.15);
-    color: #58a6ff;
-  }
-  .base-link-android {
+  .base-link-app {
     background: rgba(63, 185, 80, 0.15);
     color: #3fb950;
   }
-  .base-link-android:hover {
+  .base-link-app:hover {
     background: rgba(63, 185, 80, 0.3);
   }
 
@@ -813,14 +809,13 @@ if (mdMatch) toolUrl = mdMatch[1];
   }
   const baseToken = extractBaseToken(baseUrl);
   
-  // 桌面版：網頁鏈接（瀏覽器打開）
+  // 網頁版URL（用於fallback）
   const baseWebUrl = baseToken ? `https://feishu.doubao.com/base/${baseToken}` : baseUrl;
-  // 多維表格鏈接（兩個按鈕：桌面網頁 + APP智能跳轉）
+  // 多維表格鏈接（一個按鈕：智能跳轉，先試APP，失敗自動轉網頁）
   let baseLinkHtml = '';
   if (baseToken) {
     baseLinkHtml = `
-      <a href="${baseWebUrl}" target="_blank" class="base-link base-link-web" onclick="event.stopPropagation()" title="桌面瀏覽器打開">🖥️ 桌面</a>
-      <a href="javascript:void(0)" class="base-link base-link-android" onclick="event.stopPropagation(); openBaseApp('${baseToken}')" title="飛書APP打開（失敗自動轉網頁）">📱 APP</a>
+      <a href="javascript:void(0)" class="base-link base-link-app" onclick="event.stopPropagation(); openBaseApp('${baseToken}')" title="飛書APP打開（失敗自動轉網頁）">📊 多維表格</a>
     `;
   }
   
