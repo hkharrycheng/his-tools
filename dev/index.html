@@ -815,8 +815,8 @@ if (mdMatch) toolUrl = mdMatch[1];
   
   // 桌面版：網頁鏈接（瀏覽器打開）
   const baseWebUrl = baseToken ? `https://feishu.doubao.com/base/${baseToken}` : baseUrl;
-  // Android版：intent格式deeplink（直接調用飛書APP）
-  const baseAndroidUrl = baseToken ? `intent://base/detail?app_token=${baseToken}#Intent;scheme=lark;package=com.ss.android.lark;end` : '';
+  // Android版：飛書applink（瀏覽器自動跳轉到APP，更可靠）
+  const baseAndroidUrl = baseToken ? `https://applink.feishu.cn/client/base/open?app_token=${baseToken}` : '';
   
   // 多維表格鏈接（兩個按鈕：桌面+Android）
   let baseLinkHtml = '';
