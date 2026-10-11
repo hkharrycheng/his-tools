@@ -257,6 +257,10 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 ## Version Control
 
+| 版本 | 日期 | 更新內容 |
+|------|------|----------|
+| v1.03 | 2026-10-11 | 簡化為一個「📊 多維表格」按鈕（JavaScript智能跳轉：先試飛書APP，2秒冇反應自動轉網頁版）；J06改用新「AI補習社」多維表格 |
+
 ### 版本規則
 
 - 初始版本：v1.00
