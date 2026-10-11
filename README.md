@@ -268,6 +268,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
+| 2026-10-11 | v1.02 | 移除「其他」TAG，嚴格跟Register List；工具卡片加入「📊 多維表格」飛書APP deeplink鏈接；加入遊戲🎮 TAG圖標；強化工作流程（先改OneDrive→localhost測試→用戶OK→上傳GitHub） |
 | 2026-10-09 | v1.01 | 加入 Tags 分組顯示同 toggle 功能；工具名稱嚴格跟 Register List；動態讀取 tools.json；加入內嵌預設數據支援本地 file:// 測試 |
 | 2026-10-08 | v1.00 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具；Calendar 改用 Mobile Deeplink |
 
