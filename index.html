@@ -344,6 +344,29 @@
     font-weight: 500;
   }
 
+  /* ===== Tool Links ===== */
+  .tool-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .base-link {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(56, 139, 253, 0.15);
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .base-link:hover {
+    background: rgba(56, 139, 253, 0.3);
+  }
+
   /* ===== No Results ===== */
   .no-results {
     text-align: center;
@@ -597,15 +620,13 @@ async function loadTools() {
 }
 
 function initTagsAndRender() {
-  // 提取所有Tags
+  // 提取所有Tags（嚴格跟Register List，冇Tag嘅工具唔會顯示）
   const tagSet = new Set();
   allTools.forEach(tool => {
     const tagsArr = Array.isArray(tool.tags) ? tool.tags : (tool.tags ? [tool.tags] : []);
-    if (tagsArr.length > 0) {
-      tagsArr.forEach(tag => tagSet.add(tag));
-    } else {
-      tagSet.add('其他');
-    }
+    tagsArr.forEach(tag => {
+      if (tag) tagSet.add(tag);
+    });
   });
   allTags = Array.from(tagSet);
   
@@ -645,8 +666,8 @@ function getTagIcon(tag) {
     '交通': '🚌',
     '購物': '🛒',
     '社交': '👥',
-    '其他': '📌',
-    '學業': '📚'
+    '學業': '📚',
+    '遊戲': '🎮'
   };
   return icons[tag] || '🏷️';
 }
@@ -699,8 +720,9 @@ function renderTools() {
     // 跳過Main（因為係自己本身）
     if (tool.name === 'Main') return;
     
-    // 檢查Tag是否顯示
-    const toolTags = Array.isArray(tool.tags) ? (tool.tags.length > 0 ? tool.tags : ['其他']) : (tool.tags ? [tool.tags] : ['其他']);
+    // 檢查Tag是否顯示（嚴格跟Register List，冇Tag嘅工具唔顯示）
+    const toolTags = Array.isArray(tool.tags) ? tool.tags.filter(t => t) : (tool.tags ? [tool.tags] : []);
+    if (toolTags.length === 0) return;
     const tagVisible = toolTags.some(tag => activeTags.has(tag));
     if (!tagVisible) return;
     
@@ -770,6 +792,10 @@ const mdMatch = toolUrl.match(/\((https?:\/\/[^)]+)\)/);
 if (mdMatch) toolUrl = mdMatch[1];
   const toolIcon = tool.icon || '🔧';
   const toolStatus = tool.status || '已上線';
+  const baseUrl = tool.baseUrl || '';
+  
+  // 多維表格鏈接（有先顯示）
+  const baseLinkHtml = baseUrl ? `<a href="${baseUrl}" target="_blank" class="base-link" onclick="event.stopPropagation()">📊 多維表格</a>` : '';
   
   // 檢查是否有自訂圖標圖片
   let iconHtml = '';
@@ -787,7 +813,10 @@ if (mdMatch) toolUrl = mdMatch[1];
     <div class="tool-info">
       <div class="tool-name">${toolName}</div>
       <div class="tool-desc">${toolDesc}</div>
-      <span class="tool-badge">${toolStatus}</span>
+      <div class="tool-links">
+        <span class="tool-badge">${toolStatus}</span>
+        ${baseLinkHtml}
+      </div>
     </div>
   `;
   
