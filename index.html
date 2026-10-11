@@ -366,6 +366,13 @@
   .base-link:hover {
     background: rgba(56, 139, 253, 0.3);
   }
+  .base-link-app {
+    background: rgba(63, 185, 80, 0.15);
+    color: #3fb950;
+  }
+  .base-link-app:hover {
+    background: rgba(63, 185, 80, 0.3);
+  }
 
   /* ===== No Results ===== */
   .no-results {
@@ -468,7 +475,7 @@
 
 <!-- ===== Footer ===== -->
 <div class="footer">
-  <p>HIS Tools © 2026.1.02</p>
+  <p>HIS Tools © 2026.1.03</p>
   <p>Powered by Harry Cheng</p>
 </div>
 
@@ -794,20 +801,23 @@ if (mdMatch) toolUrl = mdMatch[1];
   const toolStatus = tool.status || '已上線';
   const baseUrl = tool.baseUrl || '';
   
-  // 多維表格鏈接：轉換為飛書APP deeplink，直接用APP打開
-  function toLarkDeeplink(url) {
+  // 多維表格鏈接：桌面用網頁，Android用intent deeplink
+  function extractBaseToken(url) {
     if (!url) return '';
-    // 提取base token：支援 feishu.doubao.com/base/TOKEN, my.feishu.cn/base/TOKEN, www.doubao.com/base/TOKEN
     const match = url.match(/\/base\/([A-Za-z0-9]+)/);
-    if (match) {
-      return `lark://base/detail?app_token=${match[1]}`;
-    }
-    return url;
+    return match ? match[1] : '';
   }
-  const baseDeeplink = toLarkDeeplink(baseUrl);
+  const baseToken = extractBaseToken(baseUrl);
   
-  // 多維表格鏈接（有先顯示，點擊用飛書APP打開）
-  const baseLinkHtml = baseDeeplink ? `<a href="${baseDeeplink}" class="base-link" onclick="event.stopPropagation()">📊 多維表格</a>` : '';
+  // 網頁版URL（用於fallback）
+  const baseWebUrl = baseToken ? `https://feishu.doubao.com/base/${baseToken}` : baseUrl;
+  // 多維表格鏈接（一個按鈕：智能跳轉，先試APP，失敗自動轉網頁）
+  let baseLinkHtml = '';
+  if (baseToken) {
+    baseLinkHtml = `
+      <a href="javascript:void(0)" class="base-link base-link-app" onclick="event.stopPropagation(); openBaseApp('${baseToken}')" title="飛書APP打開（失敗自動轉網頁）">📊 多維表格</a>
+    `;
+  }
   
   // 檢查是否有自訂圖標圖片
   let iconHtml = '';
@@ -856,6 +866,32 @@ function clearSearch() {
   searchClear.classList.remove('visible');
   renderTools();
   searchInput.focus();
+}
+
+// ===== 飛書APP智能跳轉（先試APP，失敗自動轉網頁）=====
+function openBaseApp(token) {
+  const startTime = Date.now();
+  let jumped = false;
+  
+  // 2秒後如果仲係當前頁面，說明APP跳轉失敗，打開網頁版
+  const timer = setTimeout(() => {
+    if (!jumped && !document.hidden) {
+      window.open(`https://feishu.doubao.com/base/${token}`, '_blank');
+    }
+  }, 2000);
+  
+  // 監聽頁面隱藏（說明成功跳轉到APP）
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      jumped = true;
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  
+  // 先試lark:// scheme（飛書APP V8.1.12）
+  window.location.href = `lark://base/detail?app_token=${token}`;
 }
 
 // ===== 初始化 =====
