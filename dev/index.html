@@ -815,15 +815,12 @@ if (mdMatch) toolUrl = mdMatch[1];
   
   // 桌面版：網頁鏈接（瀏覽器打開）
   const baseWebUrl = baseToken ? `https://feishu.doubao.com/base/${baseToken}` : baseUrl;
-  // APP版：直接lark:// scheme，桌面同手機都會提示打開飛書APP
-  const baseAndroidUrl = baseToken ? `lark://base/detail?app_token=${baseToken}` : '';
-  
-  // 多維表格鏈接（兩個按鈕：桌面+Android）
+  // 多維表格鏈接（兩個按鈕：桌面網頁 + APP智能跳轉）
   let baseLinkHtml = '';
   if (baseToken) {
     baseLinkHtml = `
       <a href="${baseWebUrl}" target="_blank" class="base-link base-link-web" onclick="event.stopPropagation()" title="桌面瀏覽器打開">🖥️ 桌面</a>
-      <a href="${baseAndroidUrl}" class="base-link base-link-android" onclick="event.stopPropagation()" title="Android飛書APP打開">📱 APP</a>
+      <a href="javascript:void(0)" class="base-link base-link-android" onclick="event.stopPropagation(); openBaseApp('${baseToken}')" title="飛書APP打開（失敗自動轉網頁）">📱 APP</a>
     `;
   }
   
@@ -874,6 +871,32 @@ function clearSearch() {
   searchClear.classList.remove('visible');
   renderTools();
   searchInput.focus();
+}
+
+// ===== 飛書APP智能跳轉（先試APP，失敗自動轉網頁）=====
+function openBaseApp(token) {
+  const startTime = Date.now();
+  let jumped = false;
+  
+  // 2秒後如果仲係當前頁面，說明APP跳轉失敗，打開網頁版
+  const timer = setTimeout(() => {
+    if (!jumped && !document.hidden) {
+      window.open(`https://feishu.doubao.com/base/${token}`, '_blank');
+    }
+  }, 2000);
+  
+  // 監聽頁面隱藏（說明成功跳轉到APP）
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      jumped = true;
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  
+  // 先試lark:// scheme（飛書APP V8.1.12）
+  window.location.href = `lark://base/detail?app_token=${token}`;
 }
 
 // ===== 初始化 =====
