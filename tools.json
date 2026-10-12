@@ -99,7 +99,7 @@
             "交通"
         ],
         "github": "https://github.com/hkharrycheng/cathay-tools",
-        "icon": "✈️",
+        "icon": "https://hkharrycheng.github.io/cathay-tools/cathay-logo.png",
         "description": "國泰員工機票記錄、統計、乘客航線世界地圖分析",
         "deployedPage": "https://hkharrycheng.github.io/cathay-tools/",
         "status": "已上線",
