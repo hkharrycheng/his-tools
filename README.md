@@ -259,6 +259,8 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 版本 | 日期 | 更新內容 |
 |------|------|----------|
+| v1.05 | 2026-10-12 | 加入「鳴潮助手」同「國泰機票助手」工具卡片；tools.json 重新生成（補回鳴潮 + 新增國泰） |
+| v1.04 | 2026-10-12 | 加入 notranslate 禁止瀏覽器翻譯；修正 tools.json 格式為純數組；統一 J00/J01 格式 |
 | v1.03 | 2026-10-11 | 簡化為一個「📊 多維表格」按鈕（JavaScript智能跳轉：先試飛書APP，2秒冇反應自動轉網頁版）；J06改用新「AI補習社」多維表格 |
 
 ### 版本規則
@@ -272,6 +274,8 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
+| 2026-10-12 | v1.05 | 加入鳴潮助手⚔️同國泰機票助手✈️到 tools.json；升版本至 v1.05 |
+| 2026-10-12 | v1.04 | 加入 notranslate 禁止瀏覽器翻譯；tools.json 改為純數組 |
 | 2026-10-11 | v1.02 | 移除「其他」TAG，嚴格跟Register List；工具卡片加入「📊 多維表格」飛書APP deeplink鏈接；加入遊戲🎮 TAG圖標；強化工作流程（先改OneDrive→localhost測試→用戶OK→上傳GitHub） |
 | 2026-10-09 | v1.01 | 加入 Tags 分組顯示同 toggle 功能；工具名稱嚴格跟 Register List；動態讀取 tools.json；加入內嵌預設數據支援本地 file:// 測試 |
 | 2026-10-08 | v1.00 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具；Calendar 改用 Mobile Deeplink |
