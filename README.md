@@ -256,6 +256,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 ---
 
 ## Version Control
+- v1.07 (2026-10-13): 統一圖標 LOGO（tools.json logo 字段 + Main 卡片顯示圖標相片）
 
 | 版本 | 日期 | 更新內容 |
 |------|------|----------|
