@@ -104,5 +104,17 @@
         "deployedPage": "https://hkharrycheng.github.io/cathay-tools/",
         "status": "已上線",
         "baseUrl": "https://feishu.doubao.com/base/C2x4byTkEaN3Ths9FXwcagDSn5e"
+    },
+    {
+        "name": "升中分析",
+        "tags": [
+            "學業"
+        ],
+        "github": "https://github.com/hkharrycheng/SecondarySchoolStudy",
+        "icon": "🏫",
+        "description": "升中分析：Band 1 中學地圖（區域/Band配色/搜尋）+ AI評價 + 升中流程（Cici/Coco）時間線",
+        "deployedPage": "https://hkharrycheng.github.io/SecondarySchoolStudy/",
+        "status": "已上線",
+        "baseUrl": "https://feishu.doubao.com/base/G7tZbbEmYaSsAmstU6gcullHn8Z"
     }
 ]
