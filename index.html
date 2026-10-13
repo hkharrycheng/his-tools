@@ -825,14 +825,14 @@ if (mdMatch) toolUrl = mdMatch[1];
     `;
   }
   
-  // 檢查是否有自訂圖標圖片（優先 logo 字段，其次 http icon）
+  // 檢查是否有自訂圖標圖片（優先 tool.logo 圖標相片）
   let iconHtml = '';
   if (tool.logo) {
     iconHtml = `<img src="${tool.logo}" alt="${toolName}">`;
   } else if (tool.icon && tool.icon.startsWith('http')) {
     iconHtml = `<img src="${tool.icon}" alt="${toolName}">`;
   } else if (tool.icon === '🚌') {
-    // 巴士用城巴logo（fallback）
+    // 巴士用城巴logo
     iconHtml = `<img src="citybus-logo.png" alt="${toolName}">`;
   } else {
     iconHtml = toolIcon;
