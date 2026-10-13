@@ -476,7 +476,7 @@
 
 <!-- ===== Footer ===== -->
 <div class="footer">
-  <p>HIS Tools © 2026.1.06</p>
+  <p>HIS Tools © 2026.1.07</p>
   <p>Powered by Harry Cheng</p>
 </div>
 
@@ -568,6 +568,7 @@ const DEFAULT_TOOLS = [
   {
     name: "巴士到站時間",
     icon: "🚌",
+    logo: "logos/bus.png",
     url: "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
     description: "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
     status: "已上線",
@@ -576,6 +577,7 @@ const DEFAULT_TOOLS = [
   {
     name: "外幣夾錢",
     icon: "💱",
+    logo: "logos/currency.jpg",
     url: "https://hkharrycheng.github.io/currency-exchange/",
     description: "實時外幣兌換率查詢 + 夾錢計算",
     status: "已上線",
@@ -584,6 +586,7 @@ const DEFAULT_TOOLS = [
   {
     name: "點餐清單工具",
     icon: "🍽️",
+    logo: "logos/food.png",
     url: "https://hkharrycheng.github.io/food-arrival/",
     description: "餐廳用餐記錄工具",
     status: "已上線",
@@ -592,6 +595,7 @@ const DEFAULT_TOOLS = [
   {
     name: "貨品監控助手",
     icon: "📦",
+    logo: "logos/purchase.webp",
     url: "https://hkharrycheng.github.io/purchase-target/",
     description: "監控心儀貨品價格變化，Price.com.hk報價，行/水貨跌價分析",
     status: "已上線",
@@ -600,6 +604,7 @@ const DEFAULT_TOOLS = [
   {
     name: "學生成績記錄",
     icon: "📚",
+    logo: "logos/student.png",
     url: "https://hkharrycheng.github.io/student-record/",
     description: "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
     status: "已上線",
@@ -820,12 +825,14 @@ if (mdMatch) toolUrl = mdMatch[1];
     `;
   }
   
-  // 檢查是否有自訂圖標圖片
+  // 檢查是否有自訂圖標圖片（優先 logo 字段，其次 http icon）
   let iconHtml = '';
-  if (tool.icon && tool.icon.startsWith('http')) {
+  if (tool.logo) {
+    iconHtml = `<img src="${tool.logo}" alt="${toolName}">`;
+  } else if (tool.icon && tool.icon.startsWith('http')) {
     iconHtml = `<img src="${tool.icon}" alt="${toolName}">`;
   } else if (tool.icon === '🚌') {
-    // 巴士用城巴logo
+    // 巴士用城巴logo（fallback）
     iconHtml = `<img src="citybus-logo.png" alt="${toolName}">`;
   } else {
     iconHtml = toolIcon;
