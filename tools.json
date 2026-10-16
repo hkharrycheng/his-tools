@@ -125,5 +125,18 @@
         "deployedPage": "https://hkharrycheng.github.io/SecondarySchoolStudy/",
         "status": "已上線",
         "baseUrl": "https://feishu.doubao.com/base/G7tZbbEmYaSsAmstU6gcullHn8Z"
+    },
+    {
+        "name": "影片資料庫",
+        "tags": [
+            "電玩"
+        ],
+        "github": "https://github.com/hkharrycheng/video-inventory",
+        "icon": "🎬",
+        "logo": "logos/video.png",
+        "description": "影片資料庫：搜尋Video Master（Poster/評分/角色/演員/聲優/DB狀態）、下載中進度、GNN新聞橫圖庫",
+        "deployedPage": "https://hkharrycheng.github.io/video-inventory/",
+        "status": "已上線",
+        "baseUrl": "https://feishu.doubao.com/base/GBVWbrDHaa1xVbsLGOPcvSbbndg"
     }
 ]
