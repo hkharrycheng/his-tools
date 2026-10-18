@@ -1,142 +1,154 @@
 [
-    {
-        "name": "Main",
-        "tags": [],
-        "github": "https://github.com/hkharrycheng/his-tools",
-        "icon": "🏠",
-        "description": "HIS Tools 主頁，所有工具入口",
-        "deployedPage": "https://hkharrycheng.github.io/his-tools/",
-        "status": "已上線",
-        "baseUrl": ""
-    },
-    {
-        "name": "巴士到站時間",
-        "tags": [
-            "交通"
-        ],
-        "github": "https://github.com/hkharrycheng/bus-eta-sync",
-        "icon": "🚌",
-        "description": "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
-        "deployedPage": "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/An0abQoUBalSqJsG66ucDzT3ncg",
-        "logo": "logos/bus.png"
-    },
-    {
-        "name": "外幣夾錢",
-        "tags": [
-            "社交"
-        ],
-        "github": "https://github.com/hkharrycheng/currency-exchange",
-        "icon": "💱",
-        "description": "實時外幣兌換率查詢 + 夾錢計算",
-        "deployedPage": "https://hkharrycheng.github.io/currency-exchange/",
-        "status": "已上線",
-        "baseUrl": "",
-        "logo": "logos/currency.jpg"
-    },
-    {
-        "name": "點餐清單工具",
-        "tags": [
-            "社交"
-        ],
-        "github": "https://github.com/hkharrycheng/food-arrival",
-        "icon": "🍽️",
-        "description": "餐廳用餐記錄工具",
-        "deployedPage": "https://hkharrycheng.github.io/food-arrival/",
-        "status": "已上線",
-        "baseUrl": "",
-        "logo": "logos/food.png"
-    },
-    {
-        "name": "貨品監控助手",
-        "tags": [
-            "購物"
-        ],
-        "github": "https://github.com/hkharrycheng/purchase-target",
-        "icon": "📦",
-        "description": "監控心儀貨品價格變化, 行/水貨跌價分析",
-        "deployedPage": "https://hkharrycheng.github.io/purchase-target/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/An0abQoUBalSqJsG66ucDzT3ncg",
-        "logo": "logos/purchase.webp"
-    },
-    {
-        "name": "學生成績記錄",
-        "tags": [
-            "學業"
-        ],
-        "github": "https://github.com/hkharrycheng/student-record",
-        "icon": "📚",
-        "description": "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
-        "deployedPage": "https://hkharrycheng.github.io/student-record/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/WOfmburXZa6uaDsoYfUcx4Sanud",
-        "logo": "logos/student.png"
-    },
-    {
-        "name": "Wild Rift Tools",
-        "tags": [
-            "電玩"
-        ],
-        "github": "https://github.com/hkharrycheng/wild-rift-tools",
-        "icon": "🎮",
-        "description": "Wild Rift Champion Pool、戰績記錄同Battle Assistant對戰分析",
-        "deployedPage": "https://hkharrycheng.github.io/wild-rift-tools/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
-        "logo": "logos/wildrift.jpg"
-    },
-    {
-        "name": "鳴潮助手",
-        "tags": [
-            "電玩"
-        ],
-        "github": "https://github.com/hkharrycheng/wuthering-tools",
-        "icon": "⚔️",
-        "description": "鳴潮共鳴者POOL、抽卡成本、奇點擴張排名同Boss資料",
-        "deployedPage": "https://hkharrycheng.github.io/wuthering-tools/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
-        "logo": "logos/wuthering.jpg"
-    },
-    {
-        "name": "國泰機票助手",
-        "tags": [
-            "交通"
-        ],
-        "github": "https://github.com/hkharrycheng/cathay-tools",
-        "icon": "✈️",
-        "description": "國泰員工機票記錄、統計、乘客航線世界地圖分析",
-        "deployedPage": "https://hkharrycheng.github.io/cathay-tools/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/C2x4byTkEaN3Ths9FXwcagDSn5e",
-        "logo": "logos/cathay.png"
-    },
-    {
-        "name": "升中分析",
-        "tags": [
-            "學業"
-        ],
-        "github": "https://github.com/hkharrycheng/SecondarySchoolStudy",
-        "icon": "🏫",
-        "logo": "logos/school.png",
-        "description": "升中分析：Band 1 中學地圖（區域/Band配色/搜尋）+ AI評價 + 升中流程（Cici/Coco）時間線",
-        "deployedPage": "https://hkharrycheng.github.io/SecondarySchoolStudy/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/G7tZbbEmYaSsAmstU6gcullHn8Z"
-    },
-    {
-        "name": "影片資料庫",
-        "tags": [
-            "電玩"
-        ],
-        "github": "https://github.com/hkharrycheng/video-inventory",
-        "icon": "🎬",
-        "logo": "logos/video.png",
-        "description": "影片資料庫：搜尋Video Master（Poster/評分/角色/演員/聲優/DB狀態）、下載中進度、GNN新聞橫圖庫",
-        "deployedPage": "https://hkharrycheng.github.io/video-inventory/",
-        "status": "已上線",
-        "baseUrl": "https://feishu.doubao.com/base/GBVWbrDHaa1xVbsLGOPcvSbbndg"
-    }
+  {
+    "name": "Main",
+    "tags": [],
+    "github": "https://github.com/hkharrycheng/his-tools",
+    "icon": "🏠",
+    "description": "HIS Tools 主頁，所有工具入口",
+    "deployedPage": "https://hkharrycheng.github.io/his-tools/",
+    "status": "已上線",
+    "baseUrl": ""
+  },
+  {
+    "name": "巴士到站時間",
+    "tags": [
+      "交通"
+    ],
+    "github": "https://github.com/hkharrycheng/bus-eta-sync",
+    "icon": "🚌",
+    "description": "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
+    "deployedPage": "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/An0abQoUBalSqJsG66ucDzT3ncg",
+    "logo": "logos/bus.png"
+  },
+  {
+    "name": "外幣夾錢",
+    "tags": [
+      "社交"
+    ],
+    "github": "https://github.com/hkharrycheng/currency-exchange",
+    "icon": "💱",
+    "description": "實時外幣兌換率查詢 + 夾錢計算",
+    "deployedPage": "https://hkharrycheng.github.io/currency-exchange/",
+    "status": "已上線",
+    "baseUrl": "",
+    "logo": "logos/currency.jpg"
+  },
+  {
+    "name": "點餐清單工具",
+    "tags": [
+      "社交"
+    ],
+    "github": "https://github.com/hkharrycheng/food-arrival",
+    "icon": "🍽️",
+    "description": "餐廳用餐記錄工具",
+    "deployedPage": "https://hkharrycheng.github.io/food-arrival/",
+    "status": "已上線",
+    "baseUrl": "",
+    "logo": "logos/food.png"
+  },
+  {
+    "name": "貨品監控助手",
+    "tags": [
+      "購物"
+    ],
+    "github": "https://github.com/hkharrycheng/purchase-target",
+    "icon": "📦",
+    "description": "監控心儀貨品價格變化, 行/水貨跌價分析",
+    "deployedPage": "https://hkharrycheng.github.io/purchase-target/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/An0abQoUBalSqJsG66ucDzT3ncg",
+    "logo": "logos/purchase.webp"
+  },
+  {
+    "name": "學生成績記錄",
+    "tags": [
+      "學業"
+    ],
+    "github": "https://github.com/hkharrycheng/student-record",
+    "icon": "📚",
+    "description": "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
+    "deployedPage": "https://hkharrycheng.github.io/student-record/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/WOfmburXZa6uaDsoYfUcx4Sanud",
+    "logo": "logos/student.png"
+  },
+  {
+    "name": "Wild Rift Tools",
+    "tags": [
+      "電玩"
+    ],
+    "github": "https://github.com/hkharrycheng/wild-rift-tools",
+    "icon": "🎮",
+    "description": "Wild Rift Champion Pool、戰績記錄同Battle Assistant對戰分析",
+    "deployedPage": "https://hkharrycheng.github.io/wild-rift-tools/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
+    "logo": "logos/wildrift.jpg"
+  },
+  {
+    "name": "鳴潮助手",
+    "tags": [
+      "電玩"
+    ],
+    "github": "https://github.com/hkharrycheng/wuthering-tools",
+    "icon": "⚔️",
+    "description": "鳴潮共鳴者POOL、抽卡成本、奇點擴張排名同Boss資料",
+    "deployedPage": "https://hkharrycheng.github.io/wuthering-tools/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
+    "logo": "logos/wuthering.jpg"
+  },
+  {
+    "name": "國泰機票助手",
+    "tags": [
+      "交通"
+    ],
+    "github": "https://github.com/hkharrycheng/cathay-tools",
+    "icon": "✈️",
+    "description": "國泰員工機票記錄、統計、乘客航線世界地圖分析",
+    "deployedPage": "https://hkharrycheng.github.io/cathay-tools/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/C2x4byTkEaN3Ths9FXwcagDSn5e",
+    "logo": "logos/cathay.png"
+  },
+  {
+    "name": "升中分析",
+    "tags": [
+      "學業"
+    ],
+    "github": "https://github.com/hkharrycheng/SecondarySchoolStudy",
+    "icon": "🏫",
+    "logo": "logos/school.png",
+    "description": "升中分析：Band 1 中學地圖（區域/Band配色/搜尋）+ AI評價 + 升中流程（Cici/Coco）時間線",
+    "deployedPage": "https://hkharrycheng.github.io/SecondarySchoolStudy/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/G7tZbbEmYaSsAmstU6gcullHn8Z"
+  },
+  {
+    "name": "影片資料庫",
+    "tags": [
+      "電玩"
+    ],
+    "github": "https://github.com/hkharrycheng/video-inventory",
+    "icon": "🎬",
+    "logo": "logos/video.png",
+    "description": "影片資料庫：搜尋Video Master（Poster/評分/角色/演員/聲優/DB狀態）、下載中進度、GNN新聞橫圖庫",
+    "deployedPage": "https://hkharrycheng.github.io/video-inventory/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/GBVWbrDHaa1xVbsLGOPcvSbbndg"
+  },
+  {
+    "name": "家庭日記",
+    "tags": [
+      "家庭"
+    ],
+    "github": "https://github.com/hkharrycheng/memories-blogger",
+    "icon": "📖",
+    "description": "家庭日記：Buddies統計、事件搜尋、成員關係圖、地理位置地圖（4-Tab）",
+    "deployedPage": "https://hkharrycheng.github.io/memories-blogger/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/G3R9bu15Va1w4JsxjYTcHyI4ncd"
+  }
 ]
