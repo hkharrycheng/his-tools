@@ -256,6 +256,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 ---
 
 ## Version Control
+- v1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Access 登入保護）；tools.json 重新生成
 - v1.07 (2026-10-13): 統一圖標 LOGO（tools.json logo 字段 + Main 卡片顯示圖標相片）
 
 | 版本 | 日期 | 更新內容 |
@@ -276,6 +277,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
+| 2026-10-19 | v1.08 | 加入「家庭日記」工具卡片（Cloudflare Pages 私有部署 + Access 登入）；tools.json 重新生成 |
 | 2026-10-12 | v1.06 | 國泰機票助手卡片改用 Cathay LOGO（cathay-logo.png）；升版本至 v1.06 |
 | 2026-10-12 | v1.05 | 加入鳴潮助手⚔️同國泰機票助手✈️到 tools.json；升版本至 v1.05 |
 | 2026-10-12 | v1.04 | 加入 notranslate 禁止瀏覽器翻譯；tools.json 改為純數組 |
