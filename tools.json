@@ -151,5 +151,18 @@
         "deployedPage": "https://memories-blogger.pages.dev",
         "status": "已上線",
         "baseUrl": "https://feishu.doubao.com/base/G3R9bu15Va1w4JsxjYTcHyI4ncd"
+    },
+    {
+        "name": "音樂庫",
+        "tags": [
+            "電玩"
+        ],
+        "github": "",
+        "icon": "🎵",
+        "logo": "",
+        "description": "線上音樂庫, 即時欣賞或下載FLAC原檔",
+        "deployedPage": "https://music-inventory.pages.dev",
+        "status": "已上線",
+        "baseUrl": "https://feishu.doubao.com/base/An0abQoUBalSqJsG66ucDzT3ncg"
     }
 ]
