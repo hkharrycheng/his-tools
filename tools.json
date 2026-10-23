@@ -12,7 +12,7 @@
     {
         "name": "巴士到站時間",
         "tags": [
-            "交通"
+            "戶外"
         ],
         "github": "https://github.com/hkharrycheng/bus-eta-sync",
         "icon": "🚌",
@@ -25,7 +25,7 @@
     {
         "name": "外幣夾錢",
         "tags": [
-            "社交"
+            "戶外"
         ],
         "github": "https://github.com/hkharrycheng/currency-exchange",
         "icon": "💱",
@@ -38,7 +38,7 @@
     {
         "name": "點餐清單工具",
         "tags": [
-            "社交"
+            "戶外"
         ],
         "github": "https://github.com/hkharrycheng/food-arrival",
         "icon": "🍽️",
@@ -51,7 +51,7 @@
     {
         "name": "貨品監控助手",
         "tags": [
-            "購物"
+            "電玩"
         ],
         "github": "https://github.com/hkharrycheng/purchase-target",
         "icon": "📦",
@@ -103,7 +103,7 @@
     {
         "name": "國泰機票助手",
         "tags": [
-            "交通"
+            "戶外"
         ],
         "github": "https://github.com/hkharrycheng/cathay-tools",
         "icon": "✈️",
@@ -146,7 +146,7 @@
         ],
         "github": "",
         "icon": "📖",
-        "logo": "",
+        "logo": "logos/family.png",
         "description": "家庭日記：Buddies統計、事件搜尋、成員關係圖、地理位置地圖（4-Tab）",
         "deployedPage": "https://memories-blogger.pages.dev",
         "status": "已上線",
@@ -159,7 +159,7 @@
         ],
         "github": "",
         "icon": "🎵",
-        "logo": "",
+        "logo": "logos/music.png",
         "description": "線上音樂庫, 即時欣賞或下載FLAC原檔",
         "deployedPage": "https://music-inventory.pages.dev",
         "status": "已上線",
