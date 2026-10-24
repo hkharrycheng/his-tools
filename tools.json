@@ -174,7 +174,7 @@
                  ],
         "github":  "https://github.com/hkharrycheng/boardgame-assistant",
         "icon":  "🎲",
-        "description":  "Monopoly 香港版電子銀行記帳器：玩家現金流水帳、地產建屋記錄、JSON匯出",
+        "description":  "Monopoly 香港版電子銀行記帳器：流水帳、地產建屋、雲端存檔",
         "deployedPage":  "https://hkharrycheng.github.io/boardgame-assistant/",
         "status":  "已上線",
         "baseUrl":  ""
