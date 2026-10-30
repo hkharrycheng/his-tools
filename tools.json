@@ -11,7 +11,9 @@
   },
   {
     "name": "巴士到站時間",
-    "tags": ["戶外"],
+    "tags": [
+      "戶外"
+    ],
     "github": "https://github.com/hkharrycheng/bus-eta-sync",
     "icon": "🚌",
     "description": "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
@@ -22,7 +24,9 @@
   },
   {
     "name": "外幣夾錢",
-    "tags": ["戶外"],
+    "tags": [
+      "戶外"
+    ],
     "github": "https://github.com/hkharrycheng/currency-exchange",
     "icon": "💱",
     "description": "實時外幣兌換率查詢 + 夾錢計算",
@@ -33,7 +37,9 @@
   },
   {
     "name": "點餐清單工具",
-    "tags": ["戶外"],
+    "tags": [
+      "戶外"
+    ],
     "github": "https://github.com/hkharrycheng/food-arrival",
     "icon": "🍽️",
     "description": "餐廳用餐記錄工具",
@@ -44,7 +50,9 @@
   },
   {
     "name": "貨品監控助手",
-    "tags": ["電玩"],
+    "tags": [
+      "電玩"
+    ],
     "github": "https://github.com/hkharrycheng/purchase-target",
     "icon": "📦",
     "description": "監控心儀貨品價格變化, 行/水貨跌價分析",
@@ -55,7 +63,9 @@
   },
   {
     "name": "學生成績記錄",
-    "tags": ["家庭"],
+    "tags": [
+      "家庭"
+    ],
     "github": "https://github.com/hkharrycheng/student-record",
     "icon": "📚",
     "description": "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
@@ -66,27 +76,35 @@
   },
   {
     "name": "Wild Rift Tools",
-    "tags": ["電玩"],
+    "tags": [
+      "電玩"
+    ],
     "github": "https://github.com/hkharrycheng/wild-rift-tools",
     "icon": "🎮",
     "description": "Wild Rift Champion Pool、戰績記錄同Battle Assistant對戰分析",
     "deployedPage": "https://hkharrycheng.github.io/wild-rift-tools/",
     "status": "已上線",
-    "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d"
+    "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
+    "logo": "logos/wildrift.jpg"
   },
   {
     "name": "鳴潮助手",
-    "tags": ["電玩"],
+    "tags": [
+      "電玩"
+    ],
     "github": "https://github.com/hkharrycheng/wuthering-tools",
     "icon": "⚔️",
     "description": "鳴潮共鳴者POOL、抽卡成本、奇點擴張排名同Boss資料",
     "deployedPage": "https://hkharrycheng.github.io/wuthering-tools/",
     "status": "已上線",
-    "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d"
+    "baseUrl": "https://feishu.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
+    "logo": "logos/wuthering.jpg"
   },
   {
     "name": "國泰機票助手",
-    "tags": ["戶外"],
+    "tags": [
+      "戶外"
+    ],
     "github": "https://github.com/hkharrycheng/cathay-tools",
     "icon": "✈️",
     "description": "國泰員工機票記錄、統計、乘客航線世界地圖分析",
@@ -97,7 +115,9 @@
   },
   {
     "name": "升中分析",
-    "tags": ["家庭"],
+    "tags": [
+      "家庭"
+    ],
     "github": "https://github.com/hkharrycheng/SecondarySchoolStudy",
     "icon": "🏫",
     "logo": "logos/school.png",
@@ -108,27 +128,35 @@
   },
   {
     "name": "影片資料庫",
-    "tags": ["電玩"],
+    "tags": [
+      "電玩"
+    ],
     "github": "https://github.com/hkharrycheng/video-inventory",
     "icon": "🎬",
     "description": "影片資料庫：搜尋Video Master、下載中進度、GNN新聞橫圖庫",
     "deployedPage": "https://hkharrycheng.github.io/video-inventory/",
     "status": "已上線",
-    "baseUrl": "https://feishu.doubao.com/base/GBVWbrDHaa1xVbsLGOPcvSbbndg"
+    "baseUrl": "https://feishu.doubao.com/base/GBVWbrDHaa1xVbsLGOPcvSbbndg",
+    "logo": "logos/video.webp"
   },
   {
     "name": "家庭日記",
-    "tags": ["家庭"],
+    "tags": [
+      "家庭"
+    ],
     "github": "",
     "icon": "📖",
     "description": "家庭日記：Buddies統計、事件搜尋、成員關係圖、地理位置地圖（4-Tab）",
     "deployedPage": "https://memories-blogger.pages.dev",
     "status": "已上線",
-    "baseUrl": "https://feishu.doubao.com/base/G3R9bu15Va1w4JsxjYTcHyI4ncd"
+    "baseUrl": "https://feishu.doubao.com/base/G3R9bu15Va1w4JsxjYTcHyI4ncd",
+    "logo": "logos/family.jpg"
   },
   {
     "name": "音樂庫",
-    "tags": ["電玩"],
+    "tags": [
+      "電玩"
+    ],
     "github": "",
     "icon": "🎵",
     "logo": "logos/music.png",
@@ -139,22 +167,28 @@
   },
   {
     "name": "兒童遊戲助手",
-    "tags": ["電玩"],
+    "tags": [
+      "電玩"
+    ],
     "github": "https://github.com/hkharrycheng/boardgame-assistant",
     "icon": "🎲",
     "description": "Monopoly 香港版電子銀行記帳器：流水帳、地產建屋、雲端存檔",
     "deployedPage": "https://hkharrycheng.github.io/boardgame-assistant/",
     "status": "已上線",
-    "baseUrl": ""
+    "baseUrl": "",
+    "logo": "logos/boardgame.jpg"
   },
   {
     "name": "家庭醫療記錄",
-    "tags": ["家庭"],
+    "tags": [
+      "家庭"
+    ],
     "github": "https://github.com/hkharrycheng/family-health-pvt",
     "icon": "🏥",
     "description": "家庭醫療記錄：六大指標儀表板、用藥追蹤、Cici/Coco WHO成長曲線",
     "deployedPage": "https://family-health-241.pages.dev",
     "status": "已上線",
-    "baseUrl": "https://feishu.doubao.com/base/HpWxbzhBmalW5csp5u6cPj8lnGf"
+    "baseUrl": "https://feishu.doubao.com/base/HpWxbzhBmalW5csp5u6cPj8lnGf",
+    "logo": "logos/health.png"
   }
 ]
