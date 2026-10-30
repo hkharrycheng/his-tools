@@ -55,7 +55,7 @@
   },
   {
     "name": "學生成績記錄",
-    "tags": ["學業"],
+    "tags": ["家庭"],
     "github": "https://github.com/hkharrycheng/student-record",
     "icon": "📚",
     "description": "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
@@ -97,7 +97,7 @@
   },
   {
     "name": "升中分析",
-    "tags": ["學業"],
+    "tags": ["家庭"],
     "github": "https://github.com/hkharrycheng/SecondarySchoolStudy",
     "icon": "🏫",
     "logo": "logos/school.png",
