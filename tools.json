@@ -133,7 +133,7 @@
     ],
     "github": "https://github.com/hkharrycheng/video-inventory",
     "icon": "🎬",
-    "description": "影片資料庫：搜尋Video Master、下載中進度、GNN新聞橫圖庫",
+    "description": "影片資料庫：搜尋Video Master（Poster/評分/角色/演員/聲優/DB狀態）、下載中進度、GNN新聞橫圖庫",
     "deployedPage": "https://hkharrycheng.github.io/video-inventory/",
     "status": "已上線",
     "baseUrl": "https://feishu.doubao.com/base/GBVWbrDHaa1xVbsLGOPcvSbbndg",
@@ -146,7 +146,7 @@
     ],
     "github": "",
     "icon": "📖",
-    "description": "家庭日記：Buddies統計、事件搜尋、成員關係圖、地理位置地圖（4-Tab）",
+    "description": "家庭日記：Buddies統計、事件搜尋、成員關係圖、地理位置地圖（4-Tab）＋Harry 遊記（85條，v2026.1.15）+ MSN 歷史影片（CSV→Video Links）",
     "deployedPage": "https://memories-blogger.pages.dev",
     "status": "已上線",
     "baseUrl": "https://feishu.doubao.com/base/G3R9bu15Va1w4JsxjYTcHyI4ncd",
@@ -190,5 +190,18 @@
     "status": "已上線",
     "baseUrl": "https://feishu.doubao.com/base/HpWxbzhBmalW5csp5u6cPj8lnGf",
     "logo": "logos/health.png"
+  },
+  {
+    "name": "HKB Reader",
+    "tags": [
+      "知識"
+    ],
+    "github": "https://github.com/hkharrycheng/hkb-reader",
+    "icon": "📖",
+    "description": "Harry Knowledge Base 手機閱讀器（J16）：25 單元／50 篇章／63 細節，四個 Tab（統計／科普／文章／新聞）。統計有 STREAM 橫棒圖＋FACT CHECK 區（平均 FACT 總評 66.9%、已核查 19 筆、地區與謊言類型圓餅，點扇形跳文章 Tab）；文章列表顯示 FACT／AI %，詳情頭部有圓環＋謊言類型；新聞多來源（News Feed List 連 J16）＋每則 J01／J04 一鍵複製指令。",
+    "deployedPage": "https://hkharrycheng.github.io/hkb-reader/",
+    "status": "已上線",
+    "baseUrl": "https://feishu.doubao.com/base/ZfaibUb2Ha77QvsA2sIcY94QnHd",
+    "logo": "logos/hkb.png"
   }
 ]
