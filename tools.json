@@ -194,10 +194,10 @@
   {
     "name": "HKB Reader",
     "tags": [
-      "知識"
+      "資料庫"
     ],
     "github": "https://github.com/hkharrycheng/hkb-reader",
-    "icon": "📖",
+    "icon": "🗄️",
     "description": "Harry Knowledge Base 手機閱讀器（J16）：25 單元／50 篇章／63 細節，四個 Tab（統計／科普／文章／新聞）。統計有 STREAM 橫棒圖＋FACT CHECK 區（平均 FACT 總評 66.9%、已核查 19 筆、地區與謊言類型圓餅，點扇形跳文章 Tab）；文章列表顯示 FACT／AI %，詳情頭部有圓環＋謊言類型；新聞多來源（News Feed List 連 J16）＋每則 J01／J04 一鍵複製指令。",
     "deployedPage": "https://hkharrycheng.github.io/hkb-reader/",
     "status": "已上線",
