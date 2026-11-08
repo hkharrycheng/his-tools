@@ -259,21 +259,22 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 ---
 
 ## Version Control
-- v1.10 (2026-11-08): 加入「魔物獵人 旅人助手」J17 工具卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/，Tags 電玩，logo `logos/mho.jpg` 用 Register List 圖標原圖）；tools.json 增至 17 條
-- v1.09 (2026-10-30): 加入「家庭醫療記錄」工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 v1.06 上線
-- v1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Turnstile 公開閘）；tools.json 重新生成
-- v1.07 (2026-10-13): 統一圖標 LOGO（tools.json logo 字段 + Main 卡片顯示圖標相片）
+> 版本號口徑（2026-11-08 統一）：README、HTML footer、tools.json 版本記錄全部用同一號制 `2026.1.XX`，與 HTML 最底 `HIS Tools © 2026.1.XX` 完全對齊；舊記錄的 `v1.0X` 即等同 `2026.1.0X`（例如 v1.09 = 2026.1.09），已在本節統一改寫。
+- 2026.1.10 (2026-11-08): 加入「魔物獵人 旅人助手」J17 工具卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/，Tags 電玩，logo `logos/mho.jpg` 用 Register List 圖標原圖）；tools.json 增至 17 條；HTML footer、README、版本記錄三者對齊 2026.1.10
+- 2026.1.09 (2026-10-30): 加入「家庭醫療記錄」工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 上線
+- 2026.1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Turnstile 公開閘）；tools.json 重新生成
+- 2026.1.07 (2026-10-13): 統一圖標 LOGO（tools.json logo 字段 + Main 卡片顯示圖標相片）
 
 | 版本 | 日期 | 更新內容 |
 |------|------|----------|
-| v1.06 | 2026-10-12 | 國泰機票助手卡片改用 Cathay 官方 LOGO（cathay-logo.png）取代 ✈️ emoji |
-| v1.05 | 2026-10-12 | 加入「鳴潮助手」同「國泰機票助手」工具卡片；tools.json 重新生成（補回鳴潮 + 新增國泰） |
-| v1.04 | 2026-10-12 | 加入 notranslate 禁止瀏覽器翻譯；修正 tools.json 格式為純數組；統一 J00/J01 格式 |
-| v1.03 | 2026-10-11 | 簡化為一個「📊 多維表格」按鈕（JavaScript智能跳轉：先試飛書APP，2秒冇反應自動轉網頁版）；J06改用新「AI補習社」多維表格 |
+| 2026.1.06 | 2026-10-12 | 國泰機票助手卡片改用 Cathay 官方 LOGO（cathay-logo.png）取代 ✈️ emoji |
+| 2026.1.05 | 2026-10-12 | 加入「鳴潮助手」同「國泰機票助手」工具卡片；tools.json 重新生成（補回鳴潮 + 新增國泰） |
+| 2026.1.04 | 2026-10-12 | 加入 notranslate 禁止瀏覽器翻譯；修正 tools.json 格式為純數組；統一 J00/J01 格式 |
+| 2026.1.03 | 2026-10-11 | 簡化為一個「📊 多維表格」按鈕（JavaScript智能跳轉：先試飛書APP，2秒冇反應自動轉網頁版）；J06改用新「AI補習社」多維表格 |
 
 ### 版本規則
 
-- 初始版本：v1.00
+- 初始版本：2026.1.00
 - 每次更新 +0.01
 - HTML 最底必須顯示：`HIS Tools © 2026.1.XX`（XX 為版本號小數位）
 - README.md 必須記錄每次更新日期同改動內容
@@ -282,15 +283,15 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
-| 2026-11-08 | v1.10 | 加入「魔物獵人 旅人助手」J17 卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/）；tools.json 17 條，Tags 電玩，logo 用 Register List 圖標原件（logos/mho.jpg） |
-| 2026-10-30 | v1.09 | 加入「家庭醫療記錄」J13 工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 v1.06 修正所有指標 L/H 參考線對齊 Family Health Base |
-| 2026-10-19 | v1.08 | 加入「家庭日記」工具卡片（Cloudflare Pages 部署 + Turnstile 公開閘防爬）；tools.json 重新生成 |
-| 2026-10-12 | v1.06 | 國泰機票助手卡片改用 Cathay LOGO（cathay-logo.png）；升版本至 v1.06 |
-| 2026-10-12 | v1.05 | 加入鳴潮助手⚔️同國泰機票助手✈️到 tools.json；升版本至 v1.05 |
-| 2026-10-12 | v1.04 | 加入 notranslate 禁止瀏覽器翻譯；tools.json 改為純數組 |
-| 2026-10-11 | v1.02 | 移除「其他」TAG，嚴格跟Register List；工具卡片加入「📊 多維表格」飛書APP deeplink鏈接；加入遊戲🎮 TAG圖標；強化工作流程（先改OneDrive→localhost測試→用戶OK→上傳GitHub） |
-| 2026-10-09 | v1.01 | 加入 Tags 分組顯示同 toggle 功能；工具名稱嚴格跟 Register List；動態讀取 tools.json；加入內嵌預設數據支援本地 file:// 測試 |
-| 2026-10-08 | v1.00 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具；Calendar 改用 Mobile Deeplink |
+| 2026-11-08 | 2026.1.10 | 加入「魔物獵人 旅人助手」J17 卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/）；tools.json 17 條，Tags 電玩，logo 用 Register List 圖標原件（logos/mho.jpg） |
+| 2026-10-30 | 2026.1.09 | 加入「家庭醫療記錄」J13 工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 修正所有指標 L/H 參考線對齊 Family Health Base |
+| 2026-10-19 | 2026.1.08 | 加入「家庭日記」工具卡片（Cloudflare Pages 部署 + Turnstile 公開閘防爬）；tools.json 重新生成 |
+| 2026-10-12 | 2026.1.06 | 國泰機票助手卡片改用 Cathay LOGO（cathay-logo.png）；升版本至 2026.1.06 |
+| 2026-10-12 | 2026.1.05 | 加入鳴潮助手⚔️同國泰機票助手✈️到 tools.json；升版本至 2026.1.05 |
+| 2026-10-12 | 2026.1.04 | 加入 notranslate 禁止瀏覽器翻譯；tools.json 改為純數組 |
+| 2026-10-11 | 2026.1.02 | 移除「其他」TAG，嚴格跟Register List；工具卡片加入「📊 多維表格」飛書APP deeplink鏈接；加入遊戲🎮 TAG圖標；強化工作流程（先改OneDrive→localhost測試→用戶OK→上傳GitHub） |
+| 2026-10-09 | 2026.1.01 | 加入 Tags 分組顯示同 toggle 功能；工具名稱嚴格跟 Register List；動態讀取 tools.json；加入內嵌預設數據支援本地 file:// 測試 |
+| 2026-10-08 | 2026.1.00 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具；Calendar 改用 Mobile Deeplink |
 
 ---
 
