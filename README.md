@@ -193,18 +193,18 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
   {
     "name": "巴士到站時間",
     "icon": "🚌",
-    "deployedPage": "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
+    "url": "https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html",
     "description": "九巴、城巴/新巴、小巴實時到站時間，常用路線一覽",
     "status": "已上線",
-    "tags": ["戶外"]
+    "tags": ["交通"]
   },
   {
-    "name": "家庭醫療記錄",
-    "icon": "🏥",
-    "deployedPage": "https://family-health-241.pages.dev",
-    "description": "家庭醫療記錄：六大指標儀表板、用藥追蹤、Cici/Coco WHO成長曲線",
+    "name": "外幣夾錢",
+    "icon": "💱",
+    "url": "https://hkharrycheng.github.io/currency-exchange/",
+    "description": "實時外幣兌換率查詢 + 夾錢計算",
     "status": "已上線",
-    "tags": ["家庭"]
+    "tags": ["購物"]
   }
 ]
 ```
@@ -214,14 +214,14 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 | 欄位 | 類型 | 說明 |
 |------|------|------|
 | name | string | 工具名稱（嚴格跟 Register List 的 HIS Tools 欄） |
-| icon | string | 工具圖標（emoji 或 logos/*.png） |
-| github | string | GitHub repo URL |
-| deployedPage | string | 工具部署頁面連結 |
-| description | string | 工具描述 |
-| status | string | 狀態（已上線/即將推出/開發中） |
-| tags | array | 標籤列表，**每次生成必須從 Register List「Tags」欄即時讀取，禁止硬編碼** |
-| baseUrl | string | 對應飛書 Base URL |
-| logo | string | 可選，本地 logos/ 下嘅圖片檔 |
+| tags | array | 標籤列表，嚴格跟 Register List 的 Tags 欄（現有：交通／戶外／學業／電玩／家庭／資料庫） |
+| github | string | GitHub Repository 連結（無 repo 時留空） |
+| icon | string | emoji 圖標（卡片未用 logo 時的後備） |
+| description | string | 工具描述（嚴格跟 Register List 的「描述」欄逐字） |
+| deployedPage | string | 工具部署頁面連結（跟 Register List 的 Deployed Page） |
+| status | string | 狀態（已上線／即將推出），跟 Register List 的「狀態」欄 |
+| baseUrl | string | 對應飛書／豆包 Base 連結 |
+| logo | string | 卡片用圖標圖檔（repo 內路徑，例 `logos/mho.jpg`；用 Register List「圖標」欄原圖、不改 bytes） |
 
 ---
 
@@ -233,43 +233,64 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
 his-tools/
 ├── index.html              # Landing Page 主頁面
 ├── tools.json              # 工具列表（由 Register List 生成）
-├── logos/                  # 各工具 LOGO 圖片
+├── citybus-logo.png        # 城巴 Logo
 └── README.md               # 本文件
+```
+
+### 本地 OneDrive 目錄
+
+```
+C:\Users\Harry\OneDrive\Harry Information System\豆包Agents Program Backup\Main\
+├── index.html              # Landing Page 主頁面（本地開發版）
+├── tools.json              # 工具列表
+└── citybus-logo.png        # 城巴 Logo
+```
+
+### 飛書雲端備份
+
+```
+HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
+├── index.html
+├── citybus-logo.png
+├── README.md
+└── his-tools-backup-YYYYMMDD-HHMMSS.zip
 ```
 
 ---
 
 ## Version Control
-
-### 目前 Tags 集合（2026-10-30）
-
-- **戶外**：巴士到站時間、外幣夾錢、點餐清單、國泰機票助手（4 個）
-- **電玩**：貨品監控、Wild Rift、鳴潮、影片資料庫、音樂庫、兒童遊戲（6 個）
-- **家庭**：學生成績記錄、升中分析、家庭日記、家庭醫療記錄（4 個）
-- **Main**（無 tag，1 個）
-
-> ⚠️ 「學業」tag 已於 2026-10-30 移除，原屬學業嘅學生成績記錄同升中分析已歸入「家庭」。
-
-### 版本記錄
+- v1.10 (2026-11-08): 加入「魔物獵人 旅人助手」J17 工具卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/，Tags 電玩，logo `logos/mho.jpg` 用 Register List 圖標原圖）；tools.json 增至 17 條
+- v1.09 (2026-10-30): 加入「家庭醫療記錄」工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 v1.06 上線
+- v1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Turnstile 公開閘）；tools.json 重新生成
+- v1.07 (2026-10-13): 統一圖標 LOGO（tools.json logo 字段 + Main 卡片顯示圖標相片）
 
 | 版本 | 日期 | 更新內容 |
 |------|------|----------|
-| v1.09 | 2026-10-30 | 新增 J13「家庭醫療記錄」（family-health-241.pages.dev）；Tags 重新對齊 Register List：學生成績記錄/升中分析由「學業」改為「家庭」，「學業」tag 正式移除 |
-| v1.08 | 2026-10-19 | 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev）；tools.json 重新生成 |
-| v1.07 | 2026-10-13 | 統一圖標 LOGO（tools.json logo 字段 + Main 卡片顯示圖標相片） |
-| v1.06 | 2026-10-12 | 國泰機票助手卡片改用 Cathay 官方 LOGO 取代 ✈️ emoji |
-| v1.05 | 2026-10-12 | 加入「鳴潮助手」同「國泰機票助手」工具卡片 |
-| v1.04 | 2026-10-12 | 加入 notranslate 禁止瀏覽器翻譯；tools.json 改為純數組 |
-| v1.03 | 2026-10-11 | 簡化為一個「📊 多維表格」按鈕（智能跳轉）；J06改用新「AI補習社」多維表格 |
-| v1.02 | 2026-10-11 | 工具分類 + AI 評價；多維表格改用飛書 APP deeplink |
-| v1.01 | 2026-10-09 | Tag 分組 + toggle 功能；動態讀取 tools.json |
-| v1.00 | 2026-10-08 | 初始版本，Mobile Friendly Landing Page |
+| v1.06 | 2026-10-12 | 國泰機票助手卡片改用 Cathay 官方 LOGO（cathay-logo.png）取代 ✈️ emoji |
+| v1.05 | 2026-10-12 | 加入「鳴潮助手」同「國泰機票助手」工具卡片；tools.json 重新生成（補回鳴潮 + 新增國泰） |
+| v1.04 | 2026-10-12 | 加入 notranslate 禁止瀏覽器翻譯；修正 tools.json 格式為純數組；統一 J00/J01 格式 |
+| v1.03 | 2026-10-11 | 簡化為一個「📊 多維表格」按鈕（JavaScript智能跳轉：先試飛書APP，2秒冇反應自動轉網頁版）；J06改用新「AI補習社」多維表格 |
 
 ### 版本規則
 
 - 初始版本：v1.00
 - 每次更新 +0.01
-- tools.json 嘅 tags **必須每次從 Register List 即時讀取**，唔可以死記舊 tag 集合（例如 2026-10-30 教訓：「學業」被移除後仍硬編碼導致 misalign）
+- HTML 最底必須顯示：`HIS Tools © 2026.1.XX`（XX 為版本號小數位）
+- README.md 必須記錄每次更新日期同改動內容
+
+### 更新記錄
+
+| 日期 | 版本 | 說明 |
+|------|------|------|
+| 2026-11-08 | v1.10 | 加入「魔物獵人 旅人助手」J17 卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/）；tools.json 17 條，Tags 電玩，logo 用 Register List 圖標原件（logos/mho.jpg） |
+| 2026-10-30 | v1.09 | 加入「家庭醫療記錄」J13 工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 v1.06 修正所有指標 L/H 參考線對齊 Family Health Base |
+| 2026-10-19 | v1.08 | 加入「家庭日記」工具卡片（Cloudflare Pages 部署 + Turnstile 公開閘防爬）；tools.json 重新生成 |
+| 2026-10-12 | v1.06 | 國泰機票助手卡片改用 Cathay LOGO（cathay-logo.png）；升版本至 v1.06 |
+| 2026-10-12 | v1.05 | 加入鳴潮助手⚔️同國泰機票助手✈️到 tools.json；升版本至 v1.05 |
+| 2026-10-12 | v1.04 | 加入 notranslate 禁止瀏覽器翻譯；tools.json 改為純數組 |
+| 2026-10-11 | v1.02 | 移除「其他」TAG，嚴格跟Register List；工具卡片加入「📊 多維表格」飛書APP deeplink鏈接；加入遊戲🎮 TAG圖標；強化工作流程（先改OneDrive→localhost測試→用戶OK→上傳GitHub） |
+| 2026-10-09 | v1.01 | 加入 Tags 分組顯示同 toggle 功能；工具名稱嚴格跟 Register List；動態讀取 tools.json；加入內嵌預設數據支援本地 file:// 測試 |
+| 2026-10-08 | v1.00 | 初始版本，Mobile Friendly Landing Page，包含巴士到站查詢工具；Calendar 改用 Mobile Deeplink |
 
 ---
 
@@ -277,11 +298,14 @@ his-tools/
 
 ### Q: 點解天氣顯示唔到？
 
-A: 可能原因：網絡問題、Open-Meteo API 暫時不可用、瀏覽器阻止跨域請求。
+A: 可能原因：
+1. 網絡問題 → 檢查網絡連接
+2. Open-Meteo API 暫時不可用 → 稍後重試
+3. 瀏覽器阻止跨域請求 → 檢查瀏覽器設定
 
 ### Q: 點樣新增工具？
 
-A:
+A: 
 1. 在飛書多維表格「Register List」中新增工具記錄
 2. 填寫 HIS Tools、Deployed Page、圖標、描述、Tags 等欄位
 3. 呼叫 J00 生成 tools.json 並上傳到 GitHub
@@ -289,22 +313,41 @@ A:
 
 ### Q: Tags 分組點樣運作？
 
-A: 每個工具嘅 Tags 嚴格對應 Register List「Tags」欄（單選）。頁面按 Tags 分組顯示，用戶可 toggle。**新增/移除 tag 選項只需要改 Register List，唔使改 HTML**。
+A: 每個工具可以設定一個或多個 Tags（交通、購物、社交等）。頁面會按 Tags 分組顯示，用戶可以點擊 Tag 按鈕來 toggle 顯示/隱藏該分組。「全部」按鈕可以一鍵顯示/隱藏所有分組。
 
 ### Q: 點解本地打開 index.html 都用到？
 
-A: 因為 HTML 內嵌咗 DEFAULT_TOOLS 預設數據。當檢測到 file:// 協議時，會直接用內嵌數據；部署到 GitHub Pages 後就會自動 fetch tools.json。
+A: 因為 HTML 內嵌咗 DEFAULT_TOOLS 預設數據。當檢測到 file:// 協議時，會直接用內嵌數據，唔使 fetch tools.json。部署到 GitHub Pages 後就會自動改用 tools.json。
+
+### Q: 可以自訂天氣位置嗎？
+
+A: 可以。修改 `loadWeather()` 函數中嘅 `lat` 同 `lon` 變數就得。目前設定為香港（22.3193, 114.1694）。
+
+### Q: 點解日期係 MM/DD 格式？
+
+A: 為咗節省 Header 空間，用咗簡潔嘅 MM/DD 格式。點擊日期會直接打開你手機嘅 Calendar App（iOS 用 calshow://，Android 優先 googlecalendar://）。
+
+### Q: Calendar Deeplink 點樣運作？
+
+A: `openCalendar()` 函數會檢測用戶設備：
+- **iOS**: 用 `calshow://` deeplink 直接打開系統日曆 App
+- **Android**: 優先嘗試 `googlecalendar://`，失敗則打開網頁版 Google Calendar
+- **桌面**: 打開網頁版 Google Calendar
+
+### Q: 搜尋支援邊啲語言？
+
+A: 支援中英文搜尋。比對工具名稱同描述，大小寫不敏感。
 
 ---
 
 ## 外部連結
 
 - **Landing Page**: https://hkharrycheng.github.io/his-tools/
+- **家庭醫療記錄 J13**: https://family-health-241.pages.dev
+- **家庭日記 J12**: https://memories-blogger.pages.dev
 - **巴士到站查詢**: https://hkharrycheng.github.io/bus-eta-sync/bus-eta.html
-- **家庭醫療記錄**: https://family-health-241.pages.dev
-- **家庭日記**: https://memories-blogger.pages.dev
-- **音樂庫**: https://music-inventory.pages.dev
 - **香港天文台**: https://www.hko.gov.hk/
+- **Google Calendar**: https://calendar.google.com/
 
 ---
 
