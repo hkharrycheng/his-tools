@@ -68,7 +68,7 @@
     ],
     "github": "https://github.com/hkharrycheng/student-record",
     "icon": "📚",
-    "description": "追踪Cici和Coco練習, 測驗和考試成績和錯誤",
+    "description": "追踪Cici和Coco練習、測驗、考試成績和錯誤；學生圖庫（最新中英數常成績＋錯誤重點）、記錄篩選分頁、統計圖表點擊篩選",
     "deployedPage": "https://hkharrycheng.github.io/student-record/",
     "status": "已上線",
     "baseUrl": "https://feishu.doubao.com/base/WOfmburXZa6uaDsoYfUcx4Sanud",
