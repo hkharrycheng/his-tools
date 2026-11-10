@@ -260,6 +260,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 ## Version Control
 > 版本號口徑（2026-11-08 統一）：README、HTML footer、tools.json 版本記錄全部用同一號制 `2026.1.XX`，與 HTML 最底 `HIS Tools © 2026.1.XX` 完全對齊；舊記錄的 `v1.0X` 即等同 `2026.1.0X`（例如 v1.09 = 2026.1.09），已在本節統一改寫。
+- 2026.1.11 (2026-11-10): 更新「學生成績記錄」J06 卡片描述（三 TAB：學生圖庫最新中英數常成績＋錯誤重點、記錄篩選分頁、統計圖表點擊篩選）；Tags 對齊 Register List「家庭」；HTML footer、README、版本記錄三者對齊 2026.1.11
 - 2026.1.10 (2026-11-08): 加入「魔物獵人 旅人助手」J17 工具卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/，Tags 電玩，logo `logos/mho.jpg` 用 Register List 圖標原圖）；tools.json 增至 17 條；HTML footer、README、版本記錄三者對齊 2026.1.10
 - 2026.1.09 (2026-10-30): 加入「家庭醫療記錄」工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 上線
 - 2026.1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Turnstile 公開閘）；tools.json 重新生成
@@ -283,6 +284,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
+| 2026-11-10 | 2026.1.11 | 更新「學生成績記錄」J06 卡片描述（圖庫／記錄／統計三 TAB、錯誤重點、分頁、圖表點擊篩選）；Tags 對齊 Register List「家庭」；tools.json 17 條 |
 | 2026-11-08 | 2026.1.10 | 加入「魔物獵人 旅人助手」J17 卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/）；tools.json 17 條，Tags 電玩，logo 用 Register List 圖標原件（logos/mho.jpg） |
 | 2026-10-30 | 2026.1.09 | 加入「家庭醫療記錄」J13 工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 修正所有指標 L/H 參考線對齊 Family Health Base |
 | 2026-10-19 | 2026.1.08 | 加入「家庭日記」工具卡片（Cloudflare Pages 部署 + Turnstile 公開閘防爬）；tools.json 重新生成 |
