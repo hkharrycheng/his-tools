@@ -180,6 +180,15 @@ Harry's Intelligent Services - 一個 Mobile Friendly 嘅工具集合 Landing Pa
   完成 ✅
 ```
 
+### 工作規則：上載 Repository 前，>500 KB 的檔案一律先壓縮（2026-11-09 定案）
+
+- **觸發**：任何把檔案（尤其 `images/` 內的圖）上載到 GitHub repo／Pages 或 Cloudflare Pages 之前。
+- **規則**：單檔 **> 500 KB** 必須先壓縮到 **< 500 KB** 才上載。JPEG 逐級降 quality（88→50，`optimize`＋progressive）；PNG 轉 256→64 色調色板（必要時先降 scale）；**保持原檔名副檔名**，令前端 token 路徑不變。
+- **例外：GIF 不壓**。重壓 GIF 實測會令檔案變大（`shrink_gifs.py` 已廢棄），現有 5 個 >500 KB 的 GIF 保留原檔。
+- **理由**：GitHub 每個 repo 的 Pages 容量上限 1,024 MB、Cloudflare Pages 每 deployment 20,000 檔；壓縮是唯一不動引用關係而能省容量的手段。J16 HKB `images/` 由 725.7 MB 壓到 460.5 MB（326 個檔案）即按此規則。
+- **驗收**：壓縮後抽 2 張最大圖目視核對文字仍清晰，並回讀 repo 的 blob 大小確認 < 500 KB 或屬 GIF 例外。
+- **不做的事**：Base 多維表格內的附件**保留原圖**（用戶 2026-11-09 決定），壓縮版只用在 repository／部署端。
+
 ---
 
 ## JSON Structure
@@ -258,9 +267,39 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 ---
 
+## 系統現狀（2026-11-09）
+
+### Register List 新增兩條使用率欄
+
+`Register List`（table `tblOFf8q07WDTxNK`）除「使用容量 (MB)」「檔案數」外，另設兩條互斥的使用率欄：
+
+| 欄位 | 分母 | 口徑 |
+|------|------|------|
+| GitHub 使用率 | 1,024 MB | 只有 HTML 真係由該 GitHub repo 的 Pages 託管才計；唔係就填 `N/A` |
+| Cloudflare 使用率 | 20,000 檔 | 只有 HTML 真係部署在該 Cloudflare Pages 專案才計；唔係就填 `N/A` |
+
+兩欄都係 formula，回讀係**小數**（平台會把 `&"%"` 改寫成 `/100`）；**小數係預期行為，不需要修正**（例：家庭日記回讀 `0.6827` ＝ 68.27%）。GitHub Pages 的 1 GB 係 **per repository**（每個 repo 的 Pages 站各自計），唔係 per account。
+
+### 各工具託管與規模
+
+| 工具 | 託管 | 檔案數 | 圖片數 | 容量 (MB) |
+|------|------|--------|--------|----------|
+| 家庭日記 J12 | Cloudflare Pages `memories-blogger` | 13,653 | 13,650 | 1,295.2 |
+| HKB Reader J16 | GitHub Pages `hkb-reader` | 3,336 | 3,224 | 460.5（壓縮後） |
+| 家庭醫療 J13 | Cloudflare Pages `family-health-241` | 13 | 7 | 2.7 |
+| 音樂庫 | Cloudflare Pages `music-inventory` | 13 | 0 | 6.5 |
+| 其餘（巴士／外幣／點餐／貨品／學生／Wild Rift／鳴潮／國泰／升中／影片／兒童遊戲／MHO 等） | GitHub Pages | 見 Register List | 見 Register List | 見 Register List |
+
+J12 2026.1.19（2026-11-09）重點：① 圖片引用覆蓋率 100%（13,650/13,650）、線上孤兒 **0**；② **CI 邏輯改為「manifest 自動修剪」**——`main()` 以 `json_refs()`（JSON 全部被引用的 `images[].t` ＋ people／buddies 的 `pict`）作唯一權威，不再 union 舊 manifest／CF 已部署 token；`download_imgs()` 只下載 manifest 內缺檔的 token（原本 `t not in manifest` 會把未引用圖塞回 manifest）；`deploy()` 加「有 manifest 但本機缺圖即中止」守門。孤兒由 496 歸 0，部署 13,653 檔／13,650 圖、`manifest.json` 423,150 bytes（13,650 token）、名額 **68.3%**。③ 修好 `deploy()` 的 `>2 KB` 尺寸門檻（改 `>0`），7 張 320B–1.2KB 細圖不再被跳過（長期「缺 6 張」根因）。④ 追查「版本號改極都唔生效」：`scripts/j12_table_patch.py` 內 `re.sub(..., '2026.1.18')` 每次 CI 都把主腳本版本硬改回舊號，已改 `2026.1.19`（commit `291a1f71`）；最終 production **`579033b6`**（13,653／13,650／孤兒 0，`family-diary.json` version 2026.1.19），manifest 與引用集合雙向差集 0／0。
+
+J16 HKB Reader 2026.1.08（2026-11-09）重點：**學科名換新（EDUC）＋舊名歸位**——`build_hkb.py` 加 `norm_doc()` 名稱正規化（統一空白、去掉檔名式 ` - `），顯示名改用磁碟 DOCX 檔名，`EDUC10 Practical English`／`EDUC11 Business Email` 歸回 `Philosophy and Anthropology`，`EE01／MAT01` 統一顯示為 `EE01 - Electronic Engineering`／`MAT01 - Material Engineering`；**未分類 37 單元／96 篇章歸零**，10 個 STREAM 全部有單元。資料層重抓四表（675 單元／792 篇章／372 細節／97 Links），`hkb.json` 2,078,594 bytes、已推 `hkb-reader` repo（commit `4b32ee57`）並建 `versions/v2026.1.08/` snapshot。
+
+J10 升中分析 v1.02（2026-11-11）重點：**地圖改 Leaflet**（`leaflet/` 本地打包、Esri Light Gray 免 key 底圖），只以圓點顏色表示 Band、**區域不再填色**；新增「留意名單」圖庫 TAB，卡內「去地圖定位」可切回地圖 `flyTo` zoom 16；圓點互動改為**先出學校詳情卡 → 右下角按鈕才 toggle 留意名單 → 二次確認 → 寫多維表格 → 重生 j10.json 回傳本頁**，TAB1 預設只看留意名單；修好四個靜默問題：① overlay（確認框／詳情卡／toast／底部 Tab）z-index 低於 Leaflet pane 被地圖蓋住；② 瓦片 opacity 卡 0 令地圖空白（`fadeAnimation:false`）；③ canvas 圓點在尺寸變更後偏移／消失（改 SVG renderer ＋ resize 重畫）；④ CDN 掛掉令全頁 JS 唔執行（`L` undefined、地圖空白但 DOM 正常）→ Leaflet 本地打包。`j10.json` 151 間／留意名單 4／Band 1 共 100（130,389 bytes）；commit `c212c3c012`，`versions/v1.02/` 已建。
+
+---
+
 ## Version Control
 > 版本號口徑（2026-11-08 統一）：README、HTML footer、tools.json 版本記錄全部用同一號制 `2026.1.XX`，與 HTML 最底 `HIS Tools © 2026.1.XX` 完全對齊；舊記錄的 `v1.0X` 即等同 `2026.1.0X`（例如 v1.09 = 2026.1.09），已在本節統一改寫。
-- 2026.1.11 (2026-11-10): 更新「學生成績記錄」J06 卡片描述（三 TAB：學生圖庫最新中英數常成績＋錯誤重點、記錄篩選分頁、統計圖表點擊篩選）；Tags 對齊 Register List「家庭」；HTML footer、README、版本記錄三者對齊 2026.1.11
 - 2026.1.10 (2026-11-08): 加入「魔物獵人 旅人助手」J17 工具卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/，Tags 電玩，logo `logos/mho.jpg` 用 Register List 圖標原圖）；tools.json 增至 17 條；HTML footer、README、版本記錄三者對齊 2026.1.10
 - 2026.1.09 (2026-10-30): 加入「家庭醫療記錄」工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 上線
 - 2026.1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Turnstile 公開閘）；tools.json 重新生成
@@ -284,7 +323,7 @@ HIS Tools Backup/ (RJVkfrQ6fl9RDCdDgX0cEflKn2g)
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
-| 2026-11-10 | 2026.1.11 | 更新「學生成績記錄」J06 卡片描述（圖庫／記錄／統計三 TAB、錯誤重點、分頁、圖表點擊篩選）；Tags 對齊 Register List「家庭」；tools.json 17 條 |
+| 2026-11-09 | 2026.1.10（不變） | README 補「系統現狀」：Register List 新增 GitHub ／ Cloudflare 兩條使用率欄口徑；J12 家庭日記圖片覆蓋 100%（13,650 張）、**CI 改為 manifest 自動修剪（孤兒 496→0，2026.1.19）**；HKB Reader 壓縮後 3,224 張／460.5 MB，**2026.1.08 學科換新（EDUC）＋舊名歸位（未分類歸零）**。HTML、tools.json 未改，故版本號維持 2026.1.10 |
 | 2026-11-08 | 2026.1.10 | 加入「魔物獵人 旅人助手」J17 卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/）；tools.json 17 條，Tags 電玩，logo 用 Register List 圖標原件（logos/mho.jpg） |
 | 2026-10-30 | 2026.1.09 | 加入「家庭醫療記錄」J13 工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 修正所有指標 L/H 參考線對齊 Family Health Base |
 | 2026-10-19 | 2026.1.08 | 加入「家庭日記」工具卡片（Cloudflare Pages 部署 + Turnstile 公開閘防爬）；tools.json 重新生成 |
