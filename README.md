@@ -323,6 +323,7 @@ J10 升中分析 v1.02（2026-11-11）重點：**地圖改 Leaflet**（`leaflet/
 
 | 日期 | 版本 | 說明 |
 |------|------|------|
+| 2026-11-12 | 2026.1.10（不變） | J12 家庭日記啟用 Cloudflare Access 登入保護：主網域 `memories-blogger.pages.dev` 及預覽 `*.memories-blogger.pages.dev` 未登入均 302 去 Access；One-time PIN，允許 `hkharrycheng@gmail.com`；Access app `d5617021`／預覽 `c9ea3190`；Pages worker Turnstile 仍保留（登入後再驗一次） |
 | 2026-11-12 | 2026.1.10（不變） | J09 國泰機票及旅遊助手 v1.24：手機天數進度改 4 欄卡片格（8 天 4×2、14 天 4×4），只須上下滾動、不再橫向溢出；首頁版本升 v1.24、右上角時間跟隨最新 JSON；index commit 7d8fb96 |
 | 2026-11-12 | 2026.1.10（不變） | J09 國泰機票及旅遊助手 v1.23：修復 Timeline 破圖（分批載入＋自動重試 2 次）、航班票價面板改橫向比例條、統計圖表移除 fadeIn 並只在可見時初始化；同步修復 CI 重生 cathay.json 遺失 topFlyers／乘客關聯（單條 link dict 回傳），topFlyers 8／19 張航班有乘客名；tools.json、HTML 未改，版本號維持 |
 | 2026-11-09 | 2026.1.10（不變） | README 補「系統現狀」：Register List 新增 GitHub ／ Cloudflare 兩條使用率欄口徑；J12 家庭日記圖片覆蓋 100%（13,650 張）、**CI 改為 manifest 自動修剪（孤兒 496→0，2026.1.19）**；HKB Reader 壓縮後 3,224 張／460.5 MB，**2026.1.08 學科換新（EDUC）＋舊名歸位（未分類歸零）**。HTML、tools.json 未改，故版本號維持 2026.1.10 |
