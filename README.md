@@ -300,6 +300,7 @@ J10 升中分析 v1.02（2026-11-11）重點：**地圖改 Leaflet**（`leaflet/
 
 ## Version Control
 > 版本號口徑（2026-11-08 統一）：README、HTML footer、tools.json 版本記錄全部用同一號制 `2026.1.XX`，與 HTML 最底 `HIS Tools © 2026.1.XX` 完全對齊；舊記錄的 `v1.0X` 即等同 `2026.1.0X`（例如 v1.09 = 2026.1.09），已在本節統一改寫。
+- 2026.1.12 (2026-11-14): J13 家庭醫療記錄卡片圖標改透明 cutout（`logos/health.png` 1.87MB→132KB，BB 相去白底；J01 只對該卡加 `.health-icon` 透明底，其他卡不變）；GitHub Pages 已 built、線上驗證
 - 2026.1.10 (2026-11-08): 加入「魔物獵人 旅人助手」J17 工具卡片（GitHub Pages：hkharrycheng.github.io/mho-helper/，Tags 電玩，logo `logos/mho.jpg` 用 Register List 圖標原圖）；tools.json 增至 17 條；HTML footer、README、版本記錄三者對齊 2026.1.10
 - 2026.1.09 (2026-10-30): 加入「家庭醫療記錄」工具卡片（Cloudflare Pages：family-health-241.pages.dev）；J13 2026.1.06 上線
 - 2026.1.08 (2026-10-19): 加入「家庭日記」工具卡片（Cloudflare Pages：memories-blogger.pages.dev + Turnstile 公開閘）；tools.json 重新生成
