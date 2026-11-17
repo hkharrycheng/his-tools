@@ -216,5 +216,18 @@
     "status": "已上線",
     "baseUrl": "https://www.doubao.com/base/RhuZbZCs0aJhdDsKvMicds5Hn0d",
     "logo": "logos/mho.jpg"
+  },
+  {
+    "name": "Harry Financial",
+    "tags": [
+      "財務"
+    ],
+    "github": "",
+    "icon": "💰",
+    "description": "資產走勢（實質／虛擬／淨儲蓄）＋ 平均每月儲蓄 KPI ＋ AndroMoney 全表 15,572 筆明細；Cloudflare Access 白名單登入",
+    "deployedPage": "https://his-harry-financial.pages.dev",
+    "status": "已上線",
+    "baseUrl": "https://www.doubao.com/base/QipHb7vjDahZnYsJzAWcolI7nid",
+    "logo": "logos/financial.png"
   }
 ]
